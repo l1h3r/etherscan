@@ -4,7 +4,7 @@ defmodule Etherscan.Mixfile do
   def project do
     [
       app: :etherscan,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
       description: description(),
@@ -22,7 +22,7 @@ defmodule Etherscan.Mixfile do
 
   defp description do
     """
-    An unofficial API wrapper for etherscan.io - WIP
+    Etherscan.io API wrapper for Elixir. Provides access to ethereum blockchain data. WIP
     """
   end
 
@@ -32,7 +32,7 @@ defmodule Etherscan.Mixfile do
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["l1h3r"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/L1h3r/etherscan"}
+      links: %{"GitHub" => "https://github.com/l1h3r/etherscan"}
     ]
   end
 
@@ -40,7 +40,8 @@ defmodule Etherscan.Mixfile do
     [
       {:poison, "~> 3.1.0"},
       {:httpoison, "~> 0.13.0"},
-      {:ex_doc, ">= 0.16.3", only: :dev}
+      {:exvcr, "~> 0.8.12", only: :test},
+      {:ex_doc, "~> 0.16.3", only: :dev}
     ]
   end
 end

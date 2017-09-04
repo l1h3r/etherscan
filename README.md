@@ -2,7 +2,7 @@
 
 [Official Documentation](https://etherscan.io/apis)
 
-[Create API Key](https://etherscan.io/myapikey)
+[Create API Key (optional)](https://etherscan.io/myapikey)
 
 ## Installation
 
@@ -12,7 +12,7 @@ by adding `etherscan` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:etherscan, "~> 0.1.0"}
+    {:etherscan, "~> 0.1.1"}
   ]
 end
 ```

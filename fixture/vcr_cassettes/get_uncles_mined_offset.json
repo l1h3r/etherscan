@@ -1,0 +1,30 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": {
+        "recv_timeout": 20000,
+        "connect_timeout": 20000
+      },
+      "request_body": "",
+      "url": "https://api.etherscan.io/api?action=getminedblocks&address=0x9dd134d14d1e65f84b706d6f205cd5b1cd03a46b&apikey=&blocktype=uncles&module=account&offset=3&page=1"
+    },
+    "response": {
+      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":[{\"blockNumber\":\"2691795\",\"timeStamp\":\"1480077905\",\"blockReward\":\"3125000000000000000\"},{\"blockNumber\":\"2681249\",\"timeStamp\":\"1479923845\",\"blockReward\":\"3125000000000000000\"},{\"blockNumber\":\"2679472\",\"timeStamp\":\"1479896464\",\"blockReward\":\"3750000000000000000\"}]}",
+      "headers": {
+        "Cache-Control": "private",
+        "Content-Type": "application/json; charset=utf-8",
+        "Server": "Microsoft-IIS/10.0",
+        "Access-Control-Allow-Origin": "*",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Date": "Mon, 04 Sep 2017 01:58:19 GMT",
+        "Connection": "close",
+        "Content-Length": "301"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
