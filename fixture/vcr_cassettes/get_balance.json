@@ -19,7 +19,7 @@
         "Server": "Microsoft-IIS/10.0",
         "Access-Control-Allow-Origin": "*",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Mon, 04 Sep 2017 01:58:14 GMT",
+        "Date": "Wed, 27 Sep 2017 00:58:42 GMT",
         "Connection": "close",
         "Content-Length": "64"
       },

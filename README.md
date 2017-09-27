@@ -1,4 +1,4 @@
-# An unofficial API wrapper for [etherscan.io](https://etherscan.io/) - WIP
+# An unofficial API wrapper for [etherscan.io](https://etherscan.io/)
 
 [Official Documentation](https://etherscan.io/apis)
 

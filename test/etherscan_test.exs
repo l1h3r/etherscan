@@ -14,12 +14,12 @@ defmodule EtherscanTest do
 
   @address1_balance 40807168564070000000000
   @address2_balance 332567136222827062478
-  @address3_balance 136929866215627048268
+  @address3_balance 639861949687894574852
   @token_address_balance 135499
 
   @token_supply 21265524714464
   @block_number 2165403
-  @eth_supply 94414983467800000000000000
+  @eth_supply 94835011749100000000000000
 
   setup_all do
     HTTPoison.start()

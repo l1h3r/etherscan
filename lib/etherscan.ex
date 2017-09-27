@@ -80,7 +80,7 @@ defmodule Etherscan do
 
   @doc """
   Get a list of 'Normal' transactions by `address`. Returns up to a maximum
-  of the last 10000 transactions only.
+  of the last 10,000 transactions only.
 
   *BETA*
 
@@ -112,7 +112,7 @@ defmodule Etherscan do
 
   @doc """
   Get a list of 'Internal' transactions by `address`. Returns up to a maximum
-  of the last 10000 transactions only.
+  of the last 10,000 transactions only.
 
   *BETA*
 
@@ -144,7 +144,7 @@ defmodule Etherscan do
 
   @doc """
   Get a list of 'Internal Transactions' by `transaction_hash`. Returns up to
-  a maximum of the last 10000 transactions only.
+  a maximum of the last 10,000 transactions only.
   """
   @spec get_internal_transactions_by_hash(transaction_hash :: String.t) :: {:ok, list(Etherscan.Block.t)} | {:error, atom}
   def get_internal_transactions_by_hash(transaction_hash) when is_transaction(transaction_hash) do
