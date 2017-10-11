@@ -1,3 +1,4 @@
 use Mix.Config
 
-# import_config "#{Mix.env}.exs"
+config :etherscan,
+  :api_key, System.get_env("ETHERSCAN_API_KEY")
