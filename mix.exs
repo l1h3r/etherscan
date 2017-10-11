@@ -10,7 +10,9 @@ defmodule Etherscan.Mixfile do
       description: description(),
       package: package(),
       deps: deps(),
-      name: "Etherscan"
+      name: "Etherscan",
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.html": :test]
     ]
   end
 
@@ -41,7 +43,9 @@ defmodule Etherscan.Mixfile do
       {:poison, "~> 3.1.0"},
       {:httpoison, "~> 0.13.0"},
       {:exvcr, "~> 0.9.0", only: :test},
-      {:ex_doc, "~> 0.16.4", only: :dev}
+      {:ex_doc, "~> 0.17.1", only: :dev},
+      {:excoveralls, "~> 0.7.0", only: :test},
+      {:dialyxir, "~> 0.5.0", only: :dev, runtime: false}
     ]
   end
 end
