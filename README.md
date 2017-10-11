@@ -1,5 +1,7 @@
 # Etherscan
 
+[![Build Status](https://travis-ci.org/l1h3r/etherscan.svg?branch=master)](https://travis-ci.org/l1h3r/etherscan)
+[![Coverage Status](https://coveralls.io/repos/github/l1h3r/etherscan/badge.svg?branch=master)](https://coveralls.io/github/l1h3r/etherscan?branch=master)
 [![Hex.pm](https://img.shields.io/hexpm/v/etherscan.svg?style=flat-square)](https://hex.pm/packages/etherscan)
 [![Hex.pm](https://img.shields.io/hexpm/dt/etherscan.svg?style=flat-square)](https://hex.pm/packages/etherscan)
 
