@@ -1,6 +1,11 @@
-# An unofficial API wrapper for [etherscan.io](https://etherscan.io/)
+# Etherscan
 
-[Official Documentation](https://etherscan.io/apis)
+[![Hex.pm](https://img.shields.io/hexpm/v/etherscan.svg?style=flat-square)](https://hex.pm/packages/etherscan)
+[![Hex.pm](https://img.shields.io/hexpm/dt/etherscan.svg?style=flat-square)](https://hex.pm/packages/etherscan)
+
+An Elixir library for the [Etherscan](https://etherscan.io/) API
+
+[Official API Documentation](https://etherscan.io/apis)
 
 [Create API Key (optional)](https://etherscan.io/myapikey)
 
@@ -16,3 +21,10 @@ def deps do
   ]
 end
 ```
+
+## TODO
+
+- [ ] [Event Logs](https://etherscan.io/apis#logs)
+- [ ] [Geth/Parity Proxy](https://etherscan.io/apis#proxy)
+- [ ] Better Docs (more examples)
+- [ ] Sample App?
