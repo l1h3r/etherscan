@@ -13,7 +13,7 @@ An Elixir library for the [Etherscan](https://etherscan.io/) API
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+If [available in Hex](https://hex.pm/packages/etherscan), the package can be installed
 by adding `etherscan` to your list of dependencies in `mix.exs`:
 
 ```elixir
