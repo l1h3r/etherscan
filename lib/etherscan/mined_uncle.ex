@@ -1,15 +1,19 @@
 defmodule Etherscan.MinedUncle do
+  @moduledoc """
+  Etherscan module for the MinedUncle struct.
+  """
+
   @attributes [
     :blockNumber,
     :blockReward,
-    :timeStamp
+    :timeStamp,
   ]
 
   defstruct @attributes
 
   @type t :: %Etherscan.MinedUncle{
-    blockNumber: String.t,
-    blockReward: String.t,
-    timeStamp: String.t
+    blockNumber: String.t(),
+    blockReward: String.t(),
+    timeStamp: String.t(),
   }
 end

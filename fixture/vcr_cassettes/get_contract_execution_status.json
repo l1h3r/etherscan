@@ -12,14 +12,17 @@
       "url": "https://api.etherscan.io/api?action=getstatus&apikey=&module=transaction&txhash=0x40eb908387324f2b575b4879cd9d7188f69c8fc9d87c901b9e2daaea4b442170"
     },
     "response": {
+      "binary": false,
       "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":{\"isError\":\"0\",\"errDescription\":\"\"}}",
       "headers": {
         "Cache-Control": "private",
         "Content-Type": "application/json; charset=utf-8",
         "Server": "Microsoft-IIS/10.0",
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Wed, 27 Sep 2017 00:58:48 GMT",
+        "Date": "Sun, 10 Dec 2017 05:13:05 GMT",
         "Connection": "close",
         "Content-Length": "74"
       },

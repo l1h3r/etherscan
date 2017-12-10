@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": {
+        "recv_timeout": 20000,
+        "connect_timeout": 20000
+      },
+      "request_body": "",
+      "url": "https://api.etherscan.io/api?action=eth_blockNumber&apikey=&module=proxy"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"jsonrpc\":\"2.0\",\"result\":\"0x47d0e0\",\"id\":83}",
+      "headers": {
+        "Cache-Control": "private",
+        "Content-Type": "application/json; charset=utf-8",
+        "Server": "Microsoft-IIS/10.0",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Date": "Sun, 10 Dec 2017 05:12:56 GMT",
+        "Connection": "close",
+        "Content-Length": "45"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

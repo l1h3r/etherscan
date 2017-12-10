@@ -26,7 +26,7 @@ end
 
 ## TODO
 
-- [ ] [Event Logs](https://etherscan.io/apis#logs)
-- [ ] [Geth/Parity Proxy](https://etherscan.io/apis#proxy)
-- [ ] Better Docs (more examples)
+- [x] [Event Logs](https://etherscan.io/apis#logs)
+- [x] [Geth/Parity Proxy](https://etherscan.io/apis#proxy)
+- [x] Better Docs (more examples)
 - [ ] Sample App?

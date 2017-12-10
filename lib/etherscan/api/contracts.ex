@@ -1,14 +1,26 @@
 defmodule Etherscan.API.Contracts do
   @moduledoc """
   Module to wrap Etherscan contract endpoints.
-  See: https://etherscan.io/apis#contracts
+
+  [Etherscan API Documentation](https://etherscan.io/apis#contracts)
   """
 
-  alias Etherscan.Utils
+  alias Etherscan.{Factory, Utils}
 
+  @doc """
+  Get contract ABI for contracts with verified source code, by `address`.
+
+  [More Info](https://etherscan.io/contractsVerified)
+
+  ## Example
+
+      iex> Etherscan.API.Contracts.get_contract_abi("#{Factory.contract_address()}")
+      {:ok, [%{"name" => _, ...} | _] = contract_abi}
+  """
+  @spec get_contract_abi(address :: String.t()) :: {:ok, list()} | {:error, atom()}
   def get_contract_abi(address) when is_binary(address) do
     params = %{
-      address: address
+      address: address,
     }
 
     "contract"

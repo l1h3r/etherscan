@@ -1,0 +1,33 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": {
+        "recv_timeout": 20000,
+        "connect_timeout": 20000
+      },
+      "request_body": "",
+      "url": "https://api.etherscan.io/api?action=eth_getTransactionCount&address=0x2910543af39aba0cd09dbb2d50200b3e800a63d2&apikey=&module=proxy&tag=latest"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"jsonrpc\":\"2.0\",\"result\":\"0xaf5d\",\"id\":1}",
+      "headers": {
+        "Cache-Control": "private",
+        "Content-Type": "application/json; charset=utf-8",
+        "Server": "Microsoft-IIS/10.0",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Date": "Sun, 10 Dec 2017 05:12:57 GMT",
+        "Connection": "close",
+        "Content-Length": "42"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

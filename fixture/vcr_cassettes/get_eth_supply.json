@@ -12,14 +12,17 @@
       "url": "https://api.etherscan.io/api?action=ethsupply&apikey=&module=stats"
     },
     "response": {
-      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":\"94835011749100000000000000\"}",
+      "binary": false,
+      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":\"96244925280300000000000000\"}",
       "headers": {
         "Cache-Control": "private",
         "Content-Type": "application/json; charset=utf-8",
         "Server": "Microsoft-IIS/10.0",
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Wed, 27 Sep 2017 00:58:47 GMT",
+        "Date": "Sun, 10 Dec 2017 05:13:04 GMT",
         "Connection": "close",
         "Content-Length": "67"
       },

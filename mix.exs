@@ -9,6 +9,7 @@ defmodule Etherscan.Mixfile do
       start_permanent: Mix.env == :prod,
       description: description(),
       package: package(),
+      aliases: aliases(),
       deps: deps(),
       name: "Etherscan",
       test_coverage: [tool: ExCoveralls],
@@ -40,12 +41,20 @@ defmodule Etherscan.Mixfile do
 
   defp deps do
     [
-      {:poison, "~> 3.1.0"},
-      {:httpoison, "~> 0.13.0"},
-      {:exvcr, "~> 0.9.0", only: :test},
-      {:ex_doc, "~> 0.17.1", only: :dev},
-      {:excoveralls, "~> 0.7.0", only: :test},
-      {:dialyxir, "~> 0.5.0", only: :dev, runtime: false}
+      {:poison, "~> 3.1"},
+      {:httpoison, "~> 0.13"},
+      {:exvcr, "~> 0.9", only: :test},
+      {:ex_doc, "~> 0.18", only: :dev},
+      {:excoveralls, "~> 0.7", only: :test},
+      {:dialyxir, "~> 0.5", only: :dev, runtime: false},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+    ]
+  end
+
+  defp aliases do
+    [
+      "watch": ["test --stale --listen-on-stdin"],
+      "lint": ["dialyzer", "credo"],
     ]
   end
 end
