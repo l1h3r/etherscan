@@ -22,8 +22,7 @@
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Sun, 10 Dec 2017 05:12:54 GMT",
-        "Connection": "close",
+        "Date": "Sun, 17 Dec 2017 09:50:24 GMT",
         "Content-Length": "320"
       },
       "status_code": 200,

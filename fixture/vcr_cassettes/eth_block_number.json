@@ -13,7 +13,7 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"jsonrpc\":\"2.0\",\"result\":\"0x47d0e0\",\"id\":83}",
+      "body": "{\"jsonrpc\":\"2.0\",\"result\":\"0x48724c\",\"id\":83}",
       "headers": {
         "Cache-Control": "private",
         "Content-Type": "application/json; charset=utf-8",
@@ -22,8 +22,7 @@
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Sun, 10 Dec 2017 05:12:56 GMT",
-        "Connection": "close",
+        "Date": "Sun, 17 Dec 2017 09:50:27 GMT",
         "Content-Length": "45"
       },
       "status_code": 200,

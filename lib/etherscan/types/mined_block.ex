@@ -11,7 +11,7 @@ defmodule Etherscan.MinedBlock do
 
   defstruct @attributes
 
-  @type t :: %Etherscan.MinedBlock{
+  @type t :: %__MODULE__{
     blockNumber: String.t(),
     blockReward: String.t(),
     timeStamp: String.t(),

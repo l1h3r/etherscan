@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.0.0]
+### Added
+- `Etherscan.get_transaction_receipt_status/1`
+- Option to set HTTPoison options via `config :etherscan, request: []`
+
+### Changed
+- `Etherscan.API.Accounts.get_balance/1`
+  - returns balance in ether. previously wei
+- `Etherscan.API.Accounts.get_balances/1`
+  - returns balance in ether. previously wei
+- `Etherscan.API.Logs.get_logs/1`
+  - returns error if given an invalid address. previously made request with invalid address
+- `Etherscan.API.Proxy.get_eth_supply/0`
+  - returns supply in ether. previously wei
+
 ## [0.1.5] - 2018-03-15
 ### Changed
 - Update `httpoison` to `1.0.0`
@@ -33,7 +48,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Added
 - First version
 
-[Unreleased]: https://github.com/l1h3r/etherscan/compare/0.1.5...HEAD
+[Unreleased]: https://github.com/l1h3r/etherscan/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/l1h3r/etherscan/compare/0.1.5...2.0.0
 [0.1.5]: https://github.com/l1h3r/etherscan/compare/0.1.4...0.1.5
 [0.1.4]: https://github.com/l1h3r/etherscan/compare/0.1.3...0.1.4
 [0.1.3]: https://github.com/l1h3r/etherscan/compare/0.1.2...0.1.3

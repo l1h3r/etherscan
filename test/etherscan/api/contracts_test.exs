@@ -1,10 +1,7 @@
 defmodule Etherscan.ContractsTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
-
-  alias Etherscan.Factory
-
-  @contract_address Factory.contract_address()
+  use Etherscan.Constants
 
   setup_all do
     HTTPoison.start()
@@ -14,7 +11,7 @@ defmodule Etherscan.ContractsTest do
   describe "get_contract_abi/1" do
     test "with valid address" do
       use_cassette "get_contract_abi" do
-        response = Etherscan.get_contract_abi(@contract_address)
+        response = Etherscan.get_contract_abi(@test_contract_address)
         assert {:ok, abi} = response
         assert [%{"name" => _} | _] = abi
         assert [%{"type" => _} | _] = abi

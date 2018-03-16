@@ -4,7 +4,7 @@ defmodule Etherscan.Mixfile do
   def project do
     [
       app: :etherscan,
-      version: "0.1.5",
+      version: "2.0.0",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
       description: description(),

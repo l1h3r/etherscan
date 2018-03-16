@@ -9,11 +9,11 @@
         "connect_timeout": 20000
       },
       "request_body": "",
-      "url": "https://api.etherscan.io/api?action=eth_call&apikey=&data=0x70a08231000000000000000000000000e16359506c028e51f16be38986ec5746251e9724&module=proxy&tag=latest&to=0xAEEF46DB4855E25702F8237E8f403FddcaF931C0"
+      "url": "https://api.etherscan.io/api?action=gettxreceiptstatus&apikey=&module=transaction&txhash=0x513c1ba0bebf66436b5fed86ab668452b7805593c05073eb2d51d3a52f480a76"
     },
     "response": {
       "binary": false,
-      "body": "{\"jsonrpc\":\"2.0\",\"result\":\"0x00000000000000000000000000000000000000000000000000601d8888141c00\",\"id\":1}",
+      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":{\"status\":\"1\"}}",
       "headers": {
         "Cache-Control": "private",
         "Content-Type": "application/json; charset=utf-8",
@@ -23,7 +23,7 @@
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
         "Date": "Sun, 17 Dec 2017 09:50:28 GMT",
-        "Content-Length": "102"
+        "Content-Length": "53"
       },
       "status_code": 200,
       "type": "ok"

@@ -5,7 +5,9 @@ defmodule Etherscan.API.Logs do
   [Etherscan API Documentation](https://etherscan.io/apis#logs)
   """
 
-  alias Etherscan.{Factory, Log, Utils}
+  use Etherscan.API
+  use Etherscan.Constants
+  alias Etherscan.Log
 
   @operators ["and", "or"]
 
@@ -48,10 +50,10 @@ defmodule Etherscan.API.Logs do
   ## Example
 
       iex> params = %{
-        address: "#{Factory.topic_address()}", # Ethereum blockchain address
+        address: "#{@test_topic_address}", # Ethereum blockchain address
         fromBlock: 0, # Start block number
         toBlock: "latest", # End block number
-        topic0: "#{Factory.topic_0()}", # The first topic filter
+        topic0: "#{@test_topic_0}", # The first topic filter
         topic0_1_opr: "and", # The topic operator between topic0 and topic1
         topic1: "", # The second topic filter
         topic1_2_opr: "and", # The topic operator between topic1 and topic2
@@ -63,21 +65,19 @@ defmodule Etherscan.API.Logs do
       {:ok, [%Etherscan.Log{}]}
   """
   @spec get_logs(params :: map()) :: {:ok, list(Log.t())} | {:error, atom()}
-  def get_logs(%{fromBlock: from_block}) when not (is_integer(from_block) or from_block == "latest"), do: {:error, :invalid_from_block}
-  def get_logs(%{toBlock: to_block}) when not (is_integer(to_block) or to_block == "latest"), do: {:error, :invalid_to_block}
-  def get_logs(%{topic0_1_opr: operator}) when operator not in @operators, do: {:error, :invalid_topic0_1_opr}
-  def get_logs(%{topic1_2_opr: operator}) when operator not in @operators, do: {:error, :invalid_topic1_2_opr}
-  def get_logs(%{topic2_3_opr: operator}) when operator not in @operators, do: {:error, :invalid_topic2_3_opr}
+  def get_logs(%{address: address}) when not is_address(address), do: @error_invalid_address
+  def get_logs(%{fromBlock: from_block}) when not (is_integer(from_block) or from_block == "latest"), do: @error_invalid_from_block
+  def get_logs(%{toBlock: to_block}) when not (is_integer(to_block) or to_block == "latest"), do: @error_invalid_to_block
+  def get_logs(%{topic0_1_opr: operator}) when operator not in @operators, do: @error_invalid_topic0_1_opr
+  def get_logs(%{topic1_2_opr: operator}) when operator not in @operators, do: @error_invalid_topic1_2_opr
+  def get_logs(%{topic2_3_opr: operator}) when operator not in @operators, do: @error_invalid_topic2_3_opr
   def get_logs(params) when is_map(params) do
-    params =
-      @get_logs_default_params
-      |> Map.merge(params)
-      |> Map.take(@get_logs_default_params |> Map.keys())
+    params = merge_params(params, @get_logs_default_params)
 
     "logs"
-    |> Utils.api("getLogs", params)
-    |> Utils.parse(as: %{"result" => [%Log{}]})
-    |> Utils.format()
+    |> get("getLogs", params)
+    |> parse(as: %{"result" => [%Log{}]})
+    |> wrap(:ok)
   end
-  def get_logs(_), do: {:error, :invalid_params}
+  def get_logs(_), do: @error_invalid_params
 end

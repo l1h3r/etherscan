@@ -44,4 +44,5 @@ defmodule Etherscan do
   defdelegate get_eth_price, to: API.Stats
 
   defdelegate get_contract_execution_status(transaction_hash), to: API.Transactions
+  defdelegate get_transaction_receipt_status(transaction_hash), to: API.Transactions
 end

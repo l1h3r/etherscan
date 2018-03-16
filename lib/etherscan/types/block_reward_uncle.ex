@@ -11,7 +11,7 @@ defmodule Etherscan.BlockRewardUncle do
 
   defstruct @attributes
 
-  @type t :: %Etherscan.BlockRewardUncle{
+  @type t :: %__MODULE__{
     blockreward: String.t(),
     miner: String.t(),
     unclePosition: String.t(),
