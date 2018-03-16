@@ -19,7 +19,7 @@ by adding `etherscan` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:etherscan, "~> 0.1.4"}
+    {:etherscan, "~> 0.1.5"}
   ]
 end
 ```
