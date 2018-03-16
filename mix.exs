@@ -42,7 +42,7 @@ defmodule Etherscan.Mixfile do
   defp deps do
     [
       {:poison, "~> 3.1"},
-      {:httpoison, "~> 0.13"},
+      {:httpoison, "~> 1.0"},
       {:exvcr, "~> 0.9", only: :test},
       {:ex_doc, "~> 0.18", only: :dev},
       {:excoveralls, "~> 0.7", only: :test},
