@@ -1,10 +1,8 @@
 defmodule Etherscan.BlocksTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
-
-  alias Etherscan.{BlockReward, BlockRewardUncle, Factory}
-
-  @block_number Factory.block_number()
+  use Etherscan.Constants
+  alias Etherscan.{BlockReward, BlockRewardUncle}
 
   setup_all do
     HTTPoison.start()
@@ -14,7 +12,7 @@ defmodule Etherscan.BlocksTest do
   describe "get_block_and_uncle_rewards/1" do
     test "returns a block reward struct" do
       use_cassette "get_block_and_uncle_rewards" do
-        response = Etherscan.get_block_and_uncle_rewards(@block_number)
+        response = Etherscan.get_block_and_uncle_rewards(@test_block_number)
         assert {:ok, reward} = response
         assert %BlockReward{} = reward
       end
@@ -22,7 +20,7 @@ defmodule Etherscan.BlocksTest do
 
     test "inclues block reward uncle structs" do
       use_cassette "get_block_and_uncle_rewards" do
-        response = Etherscan.get_block_and_uncle_rewards(@block_number)
+        response = Etherscan.get_block_and_uncle_rewards(@test_block_number)
         assert {:ok, %BlockReward{uncles: uncles}} = response
         assert [%BlockRewardUncle{} | _] = uncles
       end

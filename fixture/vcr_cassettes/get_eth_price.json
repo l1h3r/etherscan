@@ -13,7 +13,7 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":{\"ethbtc\":\"0.0322\",\"ethbtc_timestamp\":\"1512882701\",\"ethusd\":\"439.72\",\"ethusd_timestamp\":\"1512882699\"}}",
+      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":{\"ethbtc\":\"0.03656\",\"ethbtc_timestamp\":\"1513504201\",\"ethusd\":\"715.8\",\"ethusd_timestamp\":\"1513504201\"}}",
       "headers": {
         "Cache-Control": "private",
         "Content-Type": "application/json; charset=utf-8",
@@ -22,8 +22,7 @@
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Sun, 10 Dec 2017 05:13:04 GMT",
-        "Connection": "close",
+        "Date": "Sun, 17 Dec 2017 09:50:29 GMT",
         "Content-Length": "140"
       },
       "status_code": 200,

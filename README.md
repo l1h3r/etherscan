@@ -13,20 +13,45 @@ An Elixir library for the [Etherscan](https://etherscan.io/) API
 
 ## Installation
 
-If [available in Hex](https://hex.pm/packages/etherscan), the package can be installed
-by adding `etherscan` to your list of dependencies in `mix.exs`:
+Etherscan is available on [Hex](https://hex.pm/). You can install the package via:
 
 ```elixir
 def deps do
   [
-    {:etherscan, "~> 0.1.5"}
+    {:etherscan, "~> 2.0.0"}
   ]
 end
 ```
 
-## TODO
+## Usage
 
-- [x] [Event Logs](https://etherscan.io/apis#logs)
-- [x] [Geth/Parity Proxy](https://etherscan.io/apis#proxy)
-- [x] Better Docs (more examples)
-- [ ] Sample App?
+#### Setting Your API Key
+
+An API key is not required to use the Etherscan API but you can set one with the following:
+
+```elixir
+config :etherscan,
+  api_key: "<YOUR-API-KEY>"
+```
+
+#### Using a Testnet
+
+Using any one of the test networks is fairly easy:
+
+```elixir
+config :etherscan,
+  network: :ropsten
+```
+
+#### Setting Request Options
+
+You can set additional request options which are passed to [HTTPoison]:
+
+```elixir
+config :etherscan,
+  request: [recv_timeout: 500]
+```
+
+Check out the HTTPoison [README](https://github.com/edgurgel/httpoison#options) for all available options.
+
+[HTTPoison]: https://github.com/edgurgel/httpoison

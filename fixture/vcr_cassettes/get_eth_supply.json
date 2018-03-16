@@ -13,7 +13,7 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":\"96244925280300000000000000\"}",
+      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":\"96392916780300000000000000\"}",
       "headers": {
         "Cache-Control": "private",
         "Content-Type": "application/json; charset=utf-8",
@@ -22,8 +22,7 @@
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Sun, 10 Dec 2017 05:13:04 GMT",
-        "Connection": "close",
+        "Date": "Sun, 17 Dec 2017 09:50:29 GMT",
         "Content-Length": "67"
       },
       "status_code": 200,

@@ -1,11 +1,8 @@
 defmodule Etherscan.TransactionsTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
-
-  alias Etherscan.Factory
-
-  @transaction_hash Factory.transaction_hash()
-  @invalid_transaction_hash Factory.invalid_transaction_hash()
+  use Etherscan.Constants
+  alias Etherscan.ContractStatus
 
   setup_all do
     HTTPoison.start()
@@ -13,24 +10,45 @@ defmodule Etherscan.TransactionsTest do
   end
 
   describe "get_contract_execution_status/1" do
-    test "with valid transaction" do
+    test "with valid transaction returns a contract status struct" do
       use_cassette "get_contract_execution_status" do
-        response = Etherscan.get_contract_execution_status(@transaction_hash)
+        response = Etherscan.get_contract_execution_status(@test_transaction_hash)
         assert {:ok, status} = response
-        assert %{"isError" => "0"} = status
+        assert %ContractStatus{isError: "0"} = status
       end
     end
 
     test "with transaction error" do
       use_cassette "get_contract_execution_status_error" do
-        response = Etherscan.get_contract_execution_status(@invalid_transaction_hash)
+        response = Etherscan.get_contract_execution_status(@test_invalid_transaction_hash)
         assert {:ok, status} = response
-        assert %{"isError" => "1", "errDescription" => "Bad jump destination"} = status
+        assert %ContractStatus{isError: "1", errDescription: "Bad jump destination"} = status
       end
     end
 
     test "with invalid transaction hash" do
       response = Etherscan.get_contract_execution_status({:transaction})
+      assert {:error, :invalid_transaction_hash} = response
+    end
+  end
+
+  describe "get_transaction_receipt_status/1" do
+    test "with valid transaction returns the transaction receipt status" do
+      use_cassette "get_transaction_receipt_status" do
+        response = Etherscan.get_transaction_receipt_status(@test_transaction_hash_2)
+        assert {:ok, %{"status" => "1"}} = response
+      end
+    end
+
+    test "with pre-byzantium transaction returns empty value" do
+      use_cassette "get_transaction_receipt_status_pre_byzantium" do
+        response = Etherscan.get_transaction_receipt_status(@test_transaction_hash)
+        assert {:ok, %{"status" => ""}} = response
+      end
+    end
+
+    test "with invalid transaction hash" do
+      response = Etherscan.get_transaction_receipt_status("my-transaction")
       assert {:error, :invalid_transaction_hash} = response
     end
   end

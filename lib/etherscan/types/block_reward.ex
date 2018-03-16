@@ -3,6 +3,8 @@ defmodule Etherscan.BlockReward do
   Etherscan module for the BlockReward struct.
   """
 
+  alias Etherscan.BlockRewardUncle
+
   @attributes [
     :blockMiner,
     :blockNumber,
@@ -14,12 +16,12 @@ defmodule Etherscan.BlockReward do
 
   defstruct @attributes
 
-  @type t :: %Etherscan.BlockReward{
+  @type t :: %__MODULE__{
     blockMiner: String.t(),
     blockNumber: String.t(),
     blockReward: String.t(),
     timeStamp: String.t(),
     uncleInclusionReward: String.t(),
-    uncles: list(Etherscan.BlockRewardUncle.t()),
+    uncles: list(BlockRewardUncle.t()),
   }
 end

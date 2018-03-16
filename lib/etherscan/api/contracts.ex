@@ -5,7 +5,8 @@ defmodule Etherscan.API.Contracts do
   [Etherscan API Documentation](https://etherscan.io/apis#contracts)
   """
 
-  alias Etherscan.{Factory, Utils}
+  use Etherscan.API
+  use Etherscan.Constants
 
   @doc """
   Get contract ABI for contracts with verified source code, by `address`.
@@ -14,20 +15,16 @@ defmodule Etherscan.API.Contracts do
 
   ## Example
 
-      iex> Etherscan.API.Contracts.get_contract_abi("#{Factory.contract_address()}")
+      iex> Etherscan.API.Contracts.get_contract_abi("#{@test_contract_address}")
       {:ok, [%{"name" => _, ...} | _] = contract_abi}
   """
   @spec get_contract_abi(address :: String.t()) :: {:ok, list()} | {:error, atom()}
-  def get_contract_abi(address) when is_binary(address) do
-    params = %{
-      address: address,
-    }
-
+  def get_contract_abi(address) when is_address(address) do
     "contract"
-    |> Utils.api("getabi", params)
-    |> Utils.parse()
+    |> get("getabi", %{address: address})
+    |> parse()
     |> Poison.decode!() # Decode again. ABI result is JSON
-    |> Utils.format()
+    |> wrap(:ok)
   end
-  def get_contract_abi(_), do: {:error, :invalid_address}
+  def get_contract_abi(_), do: @error_invalid_address
 end

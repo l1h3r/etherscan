@@ -18,7 +18,7 @@ defmodule Etherscan.Log do
 
   defstruct @attributes
 
-  @type t :: %Etherscan.Log{
+  @type t :: %__MODULE__{
     address: String.t(),
     blockNumber: String.t(),
     data: String.t(),
