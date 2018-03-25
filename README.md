@@ -5,7 +5,7 @@
 [![Hex.pm](https://img.shields.io/hexpm/v/etherscan.svg?style=flat-square)](https://hex.pm/packages/etherscan)
 [![Hex.pm](https://img.shields.io/hexpm/dt/etherscan.svg?style=flat-square)](https://hex.pm/packages/etherscan)
 
-An Elixir library for the [Etherscan](https://etherscan.io/) API
+An Elixir wrapper for the [Etherscan](https://etherscan.io/) API
 
 [Official API Documentation](https://etherscan.io/apis)
 
@@ -27,7 +27,7 @@ end
 
 #### Setting Your API Key
 
-An API key is not required to use the Etherscan API but you can set one with the following:
+An API key is not required to use the Etherscan API, however, you can set one with the following:
 
 ```elixir
 config :etherscan,
@@ -36,8 +36,7 @@ config :etherscan,
 
 #### Using a Testnet
 
-Using any one of the test networks is fairly easy:
-
+You can use one of the test networks with the following:
 ```elixir
 config :etherscan,
   network: :ropsten
