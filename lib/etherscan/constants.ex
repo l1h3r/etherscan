@@ -12,9 +12,9 @@ defmodule Etherscan.Constants do
       ]
       @api_network_urls [
         default: "https://api.etherscan.io/api",
-        ropsten: "https://ropsten.etherscan.io/api",
-        kovan:   "https://kovan.etherscan.io/api",
-        rinkeby: "https://rinkeby.etherscan.io/api",
+        ropsten: "https://api-ropsten.etherscan.io/api",
+        kovan:   "https://api-kovan.etherscan.io/api",
+        rinkeby: "https://api-rinkeby.etherscan.io/api",
       ]
       @api_networks Keyword.keys(@api_network_urls)
 
