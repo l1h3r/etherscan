@@ -54,7 +54,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Added
 - First version
 
-[2.0.2]: https://github.com/l1h3r/etherscan/compare/2.0.2...2.0.2
+[2.0.2]: https://github.com/l1h3r/etherscan/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/l1h3r/etherscan/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/l1h3r/etherscan/compare/0.1.5...2.0.0
 [0.1.5]: https://github.com/l1h3r/etherscan/compare/0.1.4...0.1.5
