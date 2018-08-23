@@ -15,7 +15,7 @@ defmodule Etherscan.API.Contracts do
 
   ## Example
 
-      iex> Etherscan.API.Contracts.get_contract_abi("#{@test_contract_address}")
+      iex> Etherscan.get_contract_abi("#{@test_contract_address}")
       {:ok, [%{"name" => _, ...} | _] = contract_abi}
   """
   @spec get_contract_abi(address :: String.t()) :: {:ok, list()} | {:error, atom()}

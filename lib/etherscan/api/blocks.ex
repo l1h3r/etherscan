@@ -14,7 +14,7 @@ defmodule Etherscan.API.Blocks do
 
   ## Example
 
-      iex> Etherscan.API.Blocks.get_block_and_uncle_rewards("#{@test_block_number}")
+      iex> Etherscan.get_block_and_uncle_rewards("#{@test_block_number}")
       {:ok, %Etherscan.BlockReward{uncles: [%Etherscan.BlockRewardUncle{}]}}
   """
   @spec get_block_and_uncle_rewards(block_number :: non_neg_integer()) :: {:ok, BlockReward.t()} :: {:error, atom()}

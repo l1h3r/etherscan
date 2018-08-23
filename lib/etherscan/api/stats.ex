@@ -13,7 +13,7 @@ defmodule Etherscan.API.Stats do
 
   ## Example
 
-      iex> Etherscan.API.Stats.get_eth_supply()
+      iex> Etherscan.get_eth_supply()
       {:ok, #{@test_eth_supply}}
   """
   @spec get_eth_supply :: {:ok, non_neg_integer()}
@@ -30,7 +30,7 @@ defmodule Etherscan.API.Stats do
 
   ## Example
 
-      iex> Etherscan.API.Stats.get_eth_price()
+      iex> Etherscan.get_eth_price()
       {:ok, %{"ethbtc" => #{@test_eth_btc_price}, "ethusd" => #{@test_eth_usd_price}}}
   """
   @spec get_eth_price :: {:ok, map()}
@@ -48,7 +48,7 @@ defmodule Etherscan.API.Stats do
 
   ## Example
 
-      iex> Etherscan.API.Stats.get_token_supply("#{@test_token_address}")
+      iex> Etherscan.get_token_supply("#{@test_token_address}")
       {:ok, #{@test_token_supply}}
   """
   @spec get_token_supply(token_address :: String.t()) :: {:ok, non_neg_integer()} | {:error, atom()}

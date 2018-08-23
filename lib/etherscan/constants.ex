@@ -58,18 +58,18 @@ defmodule Etherscan.Constants do
       @test_topic_0 "0xf63780e752c6a54a94fc52715dbc5518a3b4c3c2833d301a204226548a2a8545"
       @test_topic_1 "0x72657075746174696f6e00000000000000000000000000000000000000000000"
 
-      @test_address1_balance "40807.16856407000159379095"
+      @test_address1_balance "40807.16856607000227086246"
       @test_address2_balance "332.56713622282705955513"
-      @test_address3_balance "3213.39747044394698605174"
+      @test_address3_balance "0.18517882999999998872"
       @test_token_address_balance 135499
 
       @test_token_supply 21265524714464
       @test_block_number 2165403
-      @test_eth_supply "96392916.78030000627040863037"
-      @test_eth_btc_price "0.03656"
-      @test_eth_usd_price "715.8"
+      @test_eth_supply "101490828.03030000627040863037"
+      @test_eth_btc_price "0.04181"
+      @test_eth_usd_price "266.09"
 
-      @test_proxy_block_number 4747852
+      @test_proxy_block_number 6195580
       @test_proxy_block_tag "0x10d4f"
       @test_proxy_uncle_tag "0x210A9B"
       @test_proxy_uncle_block_tag "0x210a99"
@@ -87,7 +87,7 @@ defmodule Etherscan.Constants do
       @test_proxy_value "0xff22"
       @test_proxy_gas_price "0x051da038cc"
       @test_proxy_gas "0xffffff"
-      @test_proxy_current_gas 21000000000
+      @test_proxy_current_gas 2000000000
       @test_proxy_block_transaction_count 3
       @test_proxy_transaction_count 44893
       @test_proxy_eth_call_result "0x00000000000000000000000000000000000000000000000000601d8888141c00"

@@ -61,7 +61,7 @@ defmodule Etherscan.API.Logs do
         topic2_3_opr: "and", # The topic operator between topic2 and topic3
         topic3: "", # The fourth topic filter
       }
-      iex> Etherscan.API.Logs.get_logs(params)
+      iex> Etherscan.get_logs(params)
       {:ok, [%Etherscan.Log{}]}
   """
   @spec get_logs(params :: map()) :: {:ok, list(Log.t())} | {:error, atom()}

@@ -27,7 +27,7 @@ defmodule Etherscan.API.Accounts do
 
   ## Example
 
-      iex> Etherscan.API.Accounts.get_balance("#{@test_address1}")
+      iex> Etherscan.get_balance("#{@test_address1}")
       {:ok, #{@test_address1_balance}}
   """
   @spec get_balance(address :: String.t()) :: {:ok, non_neg_integer()} | {:error, atom()}
@@ -49,7 +49,7 @@ defmodule Etherscan.API.Accounts do
         "#{@test_address1}",
         "#{@test_address2}",
       ]
-      iex> Etherscan.API.Accounts.get_balances(addresses)
+      iex> Etherscan.get_balances(addresses)
       {:ok, [#{@test_address1_balance}, #{@test_address2_balance}]}
   """
   @spec get_balances(addresses :: list(String.t())) :: {:ok, map()} | {:error, atom()}
@@ -82,7 +82,7 @@ defmodule Etherscan.API.Accounts do
         startblock: 0, # Start block number
         endblock: 99999999, # End block number
       }
-      iex> Etherscan.API.Accounts.get_transactions("#{@test_address1}", params)
+      iex> Etherscan.get_transactions("#{@test_address1}", params)
       {:ok, [%Etherscan.Transaction{}]}
   """
   @spec get_transactions(address :: String.t(), params :: map()) :: {:ok, list(Transaction.t())} | {:error, atom()}
@@ -114,7 +114,7 @@ defmodule Etherscan.API.Accounts do
         startblock: 0, # Start block number
         endblock: 99999999, # End block number
       }
-      iex> Etherscan.API.Accounts.get_internal_transactions("#{@test_address1}", params)
+      iex> Etherscan.get_internal_transactions("#{@test_address1}", params)
       {:ok, [%Etherscan.InternalTransaction{}]}
   """
   @spec get_internal_transactions(address :: String.t(), params :: map()) :: {:ok, list(InternalTransaction.t())} | {:error, atom()}
@@ -139,7 +139,7 @@ defmodule Etherscan.API.Accounts do
 
   ## Example
 
-      iex> Etherscan.API.Accounts.get_internal_transactions_by_hash("#{@test_transaction_hash}")
+      iex> Etherscan.get_internal_transactions_by_hash("#{@test_transaction_hash}")
       {:ok, [%Etherscan.InternalTransaction{}]}
   """
   @spec get_internal_transactions_by_hash(transaction_hash :: String.t()) :: {:ok, list(InternalTransaction.t())} | {:error, atom()}
@@ -160,7 +160,7 @@ defmodule Etherscan.API.Accounts do
         page: 1, # Page number
         offset: 10, # Max records returned
       }
-      iex> Etherscan.API.Accounts.get_blocks_mined("#{@test_miner_address}", params)
+      iex> Etherscan.get_blocks_mined("#{@test_miner_address}", params)
       {:ok, [%Etherscan.MinedBlock{}]}
   """
   @spec get_blocks_mined(address :: String.t(), params :: map()) :: {:ok, list(MinedBlock.t())} | {:error, atom()}
@@ -188,7 +188,7 @@ defmodule Etherscan.API.Accounts do
         page: 1, # Page number
         offset: 10, # Max records returned
       }
-      iex> Etherscan.API.Accounts.get_uncles_mined("#{@test_miner_address}", params)
+      iex> Etherscan.get_uncles_mined("#{@test_miner_address}", params)
       {:ok, [%Etherscan.MinedUncle{}]}
   """
   @spec get_uncles_mined(address :: String.t(), params :: map()) :: {:ok, list(MinedUncle.t())} | {:error, atom()}
@@ -216,7 +216,7 @@ defmodule Etherscan.API.Accounts do
 
       iex> address = "#{@test_token_owner_address}"
       iex> token_address = "#{@test_token_address}"
-      iex> Etherscan.API.Accounts.get_token_balance(address, token_address)
+      iex> Etherscan.get_token_balance(address, token_address)
       {:ok, #{@test_token_address_balance}}
   """
   @spec get_token_balance(address :: String.t(), token_address :: String.t()) :: {:ok, non_neg_integer()} | {:error, atom()}

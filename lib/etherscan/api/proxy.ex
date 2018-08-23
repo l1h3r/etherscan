@@ -21,7 +21,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_block_number()
+      iex> Etherscan.eth_block_number()
       {:ok, "#{@test_proxy_block_number}"}
   """
   def eth_block_number do
@@ -37,7 +37,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_get_block_by_number("#{@test_proxy_block_tag}")
+      iex> Etherscan.eth_get_block_by_number("#{@test_proxy_block_tag}")
       {:ok, %Etherscan.ProxyBlock{}}
   """
   def eth_get_block_by_number(tag) when is_binary(tag) do
@@ -53,7 +53,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_get_uncle_by_block_number_and_index("#{@test_proxy_uncle_tag}", "#{@test_proxy_index}")
+      iex> Etherscan.eth_get_uncle_by_block_number_and_index("#{@test_proxy_uncle_tag}", "#{@test_proxy_index}")
       {:ok, %{"number" => "#{@test_proxy_uncle_block_tag}", ...}}
   """
   def eth_get_uncle_by_block_number_and_index(tag, index) when is_binary(tag) and is_binary(index) do
@@ -72,7 +72,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_get_block_transaction_count_by_number("#{@test_proxy_transaction_tag}")
+      iex> Etherscan.eth_get_block_transaction_count_by_number("#{@test_proxy_transaction_tag}")
       {:ok, "#{@test_proxy_block_transaction_count}"}
   """
   def eth_get_block_transaction_count_by_number(tag) when is_binary(tag) do
@@ -90,7 +90,7 @@ defmodule Etherscan.API.Proxy do
   ## Example
 
       iex> transaction_hash = "#{@test_proxy_transaction_hash}"
-      iex> Etherscan.API.Proxy.eth_get_transaction_by_hash(transaction_hash)
+      iex> Etherscan.eth_get_transaction_by_hash(transaction_hash)
       {:ok, %Etherscan.ProxyTransaction{}}
   """
   def eth_get_transaction_by_hash(transaction_hash) when is_binary(transaction_hash) do
@@ -107,7 +107,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_get_transaction_by_block_number_and_index("#{@test_proxy_block_tag}", "#{@test_proxy_index}")
+      iex> Etherscan.eth_get_transaction_by_block_number_and_index("#{@test_proxy_block_tag}", "#{@test_proxy_index}")
       {:ok, %Etherscan.ProxyTransaction{}}
   """
   def eth_get_transaction_by_block_number_and_index(tag, index) when is_binary(tag) and is_binary(index) do
@@ -125,7 +125,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_get_transaction_count("#{@test_proxy_address}")
+      iex> Etherscan.eth_get_transaction_count("#{@test_proxy_address}")
       {:ok, #{@test_proxy_transaction_count}}
   """
   def eth_get_transaction_count(address) when is_binary(address) do
@@ -146,7 +146,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_send_raw_transaction("#{@test_proxy_hex}")
+      iex> Etherscan.eth_send_raw_transaction("#{@test_proxy_hex}")
       {:ok, <TODO>}
   """
   def eth_send_raw_transaction(hex) when is_binary(hex) do
@@ -163,7 +163,7 @@ defmodule Etherscan.API.Proxy do
   ## Example
 
       iex> transaction_hash = "#{@test_proxy_transaction_hash}"
-      iex> Etherscan.API.Proxy.eth_get_transaction_receipt(transaction_hash)
+      iex> Etherscan.eth_get_transaction_receipt(transaction_hash)
       {:ok, %Etherscan.ProxyTransactionReceipt{}}
   """
   def eth_get_transaction_receipt(transaction_hash) when is_binary(transaction_hash) do
@@ -180,7 +180,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_call("#{@test_proxy_to}", "#{@test_proxy_data}")
+      iex> Etherscan.eth_call("#{@test_proxy_to}", "#{@test_proxy_data}")
       {:ok, "#{@test_proxy_eth_call_result}"}
   """
   def eth_call(to, data) when is_binary(to) and is_binary(data) do
@@ -198,7 +198,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_get_code("#{@test_proxy_code_address}", "latest")
+      iex> Etherscan.eth_get_code("#{@test_proxy_code_address}", "latest")
       {:ok, "#{@test_proxy_code_result}"}
   """
   def eth_get_code(address, tag) when is_binary(address) and is_binary(tag) do
@@ -216,7 +216,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_get_storage_at("#{@test_proxy_storage_address}", "#{@test_proxy_storage_position}")
+      iex> Etherscan.eth_get_storage_at("#{@test_proxy_storage_address}", "#{@test_proxy_storage_position}")
       {:ok, "#{@test_proxy_storage_result}"}
   """
   def eth_get_storage_at(address, position) when is_binary(address) and is_binary(position) do
@@ -234,7 +234,7 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.API.Proxy.eth_gas_price()
+      iex> Etherscan.eth_gas_price()
       {:ok, "#{@test_proxy_current_gas}"}
   """
   def eth_gas_price do
@@ -257,7 +257,7 @@ defmodule Etherscan.API.Proxy do
         gasPrice: "#{@test_proxy_gas_price}",
         gas: "#{@test_proxy_gas}",
       }
-      iex> Etherscan.API.Proxy.eth_estimate_gas(params)
+      iex> Etherscan.eth_estimate_gas(params)
       {:ok, <TODO>}
   """
   def eth_estimate_gas(%{to: _, value: _, gasPrice: _, gas: _} = params) when is_map(params) do
