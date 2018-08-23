@@ -5,13 +5,13 @@ defmodule Etherscan.ContractStatus do
 
   @attributes [
     :isError,
-    :errDescription,
+    :errDescription
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    isError: String.t(),
-    errDescription: String.t(),
-  }
+          isError: String.t(),
+          errDescription: String.t()
+        }
 end

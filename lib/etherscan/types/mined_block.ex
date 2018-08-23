@@ -6,14 +6,14 @@ defmodule Etherscan.MinedBlock do
   @attributes [
     :blockNumber,
     :blockReward,
-    :timeStamp,
+    :timeStamp
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    blockNumber: String.t(),
-    blockReward: String.t(),
-    timeStamp: String.t(),
-  }
+          blockNumber: String.t(),
+          blockReward: String.t(),
+          timeStamp: String.t()
+        }
 end

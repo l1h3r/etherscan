@@ -4,15 +4,15 @@ defmodule Etherscan.Util do
   @denominations [
     wei: 1,
     kwei: 1000,
-    mwei: 1000000,
-    gwei: 1000000000,
-    shannon: 1000000000,
-    nano: 1000000000,
-    szabo: 1000000000000,
-    micro: 1000000000000,
-    finney: 1000000000000000,
-    milli: 1000000000000000,
-    ether: 1000000000000000000,
+    mwei: 1_000_000,
+    gwei: 1_000_000_000,
+    shannon: 1_000_000_000,
+    nano: 1_000_000_000,
+    szabo: 1_000_000_000_000,
+    micro: 1_000_000_000_000,
+    finney: 1_000_000_000_000_000,
+    milli: 1_000_000_000_000_000,
+    ether: 1_000_000_000_000_000_000
   ]
 
   @doc """
@@ -27,13 +27,16 @@ defmodule Etherscan.Util do
 
   @spec convert(number :: integer() | float(), opts :: Keyword.t()) :: String.t()
   def convert(number, opts \\ [])
+
   def convert(number, opts) when is_number(number) do
     denom =
       @denominations
       |> List.keyfind(Keyword.get(opts, :denomination, :ether), 0)
       |> elem(1)
+
     pretty_float(number / denom, Keyword.get(opts, :decimals, 20))
   end
+
   def convert(number, opts) when is_binary(number) do
     number
     |> String.to_integer()
@@ -45,9 +48,11 @@ defmodule Etherscan.Util do
   """
   @spec pretty_float(number :: float() | String.t(), decimals :: integer()) :: String.t()
   def pretty_float(number, decimals \\ 20)
+
   def pretty_float(number, decimals) when is_number(number) do
     :erlang.float_to_binary(number, [:compact, decimals: decimals])
   end
+
   def pretty_float(number, decimals) when is_binary(number) do
     number
     |> String.to_float()
@@ -68,12 +73,14 @@ defmodule Etherscan.Util do
       {integer, _} ->
         integer
         |> wrap(:ok)
+
       :error ->
-        "invalid hex - #{inspect "0x" <> hex}"
+        "invalid hex - #{inspect("0x" <> hex)}"
         |> wrap(:error)
     end
   end
-  def hex_to_number(hex), do: "invalid hex - #{inspect hex}" |> wrap(:error)
+
+  def hex_to_number(hex), do: "invalid hex - #{inspect(hex)}" |> wrap(:error)
 
   @spec safe_hex_to_number(hex :: String.t()) :: integer()
   def safe_hex_to_number(hex) do
@@ -82,6 +89,7 @@ defmodule Etherscan.Util do
     |> case do
       {:ok, integer} ->
         integer
+
       {:error, _reason} ->
         0
     end
@@ -93,6 +101,7 @@ defmodule Etherscan.Util do
     |> Integer.to_string(16)
     |> (&Kernel.<>("0x", &1)).()
   end
+
   def number_to_hex(number) when is_binary(number) do
     number
     |> String.to_integer()

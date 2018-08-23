@@ -14,12 +14,12 @@ defmodule Etherscan.API.Accounts do
     endblock: nil,
     sort: "asc",
     page: 1,
-    offset: 20,
+    offset: 20
   }
 
   @blocks_mined_default_params %{
     page: 1,
-    offset: 20,
+    offset: 20
   }
 
   @doc """
@@ -38,6 +38,7 @@ defmodule Etherscan.API.Accounts do
     |> format_balance()
     |> wrap(:ok)
   end
+
   def get_balance(_), do: @error_invalid_address
 
   @doc """
@@ -53,11 +54,8 @@ defmodule Etherscan.API.Accounts do
       {:ok, [#{@test_address1_balance}, #{@test_address2_balance}]}
   """
   @spec get_balances(addresses :: list(String.t())) :: {:ok, map()} | {:error, atom()}
-  def get_balances([head | _] = addresses) when
-    is_list(addresses) and
-    is_address(head) and
-    length(addresses) <= 20
-  do
+  def get_balances([head | _] = addresses)
+      when is_list(addresses) and is_address(head) and length(addresses) <= 20 do
     "account"
     |> get("balancemulti", %{address: Enum.join(addresses, ","), tag: "latest"})
     |> parse()
@@ -66,6 +64,7 @@ defmodule Etherscan.API.Accounts do
     end)
     |> wrap(:ok)
   end
+
   def get_balances(_), do: @error_invalid_addresses
 
   @doc """
@@ -85,8 +84,10 @@ defmodule Etherscan.API.Accounts do
       iex> Etherscan.get_transactions("#{@test_address1}", params)
       {:ok, [%Etherscan.Transaction{}]}
   """
-  @spec get_transactions(address :: String.t(), params :: map()) :: {:ok, list(Transaction.t())} | {:error, atom()}
+  @spec get_transactions(address :: String.t(), params :: map()) ::
+          {:ok, list(Transaction.t())} | {:error, atom()}
   def get_transactions(address, params \\ %{})
+
   def get_transactions(address, params) when is_address(address) do
     params =
       params
@@ -98,6 +99,7 @@ defmodule Etherscan.API.Accounts do
     |> parse(as: %{"result" => [%Transaction{}]})
     |> wrap(:ok)
   end
+
   def get_transactions(_, _), do: @error_invalid_address
 
   @doc """
@@ -117,8 +119,10 @@ defmodule Etherscan.API.Accounts do
       iex> Etherscan.get_internal_transactions("#{@test_address1}", params)
       {:ok, [%Etherscan.InternalTransaction{}]}
   """
-  @spec get_internal_transactions(address :: String.t(), params :: map()) :: {:ok, list(InternalTransaction.t())} | {:error, atom()}
+  @spec get_internal_transactions(address :: String.t(), params :: map()) ::
+          {:ok, list(InternalTransaction.t())} | {:error, atom()}
   def get_internal_transactions(address, params \\ %{})
+
   def get_internal_transactions(address, params) when is_address(address) do
     params =
       params
@@ -130,6 +134,7 @@ defmodule Etherscan.API.Accounts do
     |> parse(as: %{"result" => [%InternalTransaction{}]})
     |> wrap(:ok)
   end
+
   def get_internal_transactions(_, _), do: @error_invalid_address
 
   @doc """
@@ -142,13 +147,15 @@ defmodule Etherscan.API.Accounts do
       iex> Etherscan.get_internal_transactions_by_hash("#{@test_transaction_hash}")
       {:ok, [%Etherscan.InternalTransaction{}]}
   """
-  @spec get_internal_transactions_by_hash(transaction_hash :: String.t()) :: {:ok, list(InternalTransaction.t())} | {:error, atom()}
+  @spec get_internal_transactions_by_hash(transaction_hash :: String.t()) ::
+          {:ok, list(InternalTransaction.t())} | {:error, atom()}
   def get_internal_transactions_by_hash(transaction_hash) when is_address(transaction_hash) do
     "account"
     |> get("txlistinternal", %{txhash: transaction_hash})
     |> parse(as: %{"result" => [%InternalTransaction{hash: transaction_hash}]})
     |> wrap(:ok)
   end
+
   def get_internal_transactions_by_hash(_), do: @error_invalid_transaction_hash
 
   @doc """
@@ -163,8 +170,10 @@ defmodule Etherscan.API.Accounts do
       iex> Etherscan.get_blocks_mined("#{@test_miner_address}", params)
       {:ok, [%Etherscan.MinedBlock{}]}
   """
-  @spec get_blocks_mined(address :: String.t(), params :: map()) :: {:ok, list(MinedBlock.t())} | {:error, atom()}
+  @spec get_blocks_mined(address :: String.t(), params :: map()) ::
+          {:ok, list(MinedBlock.t())} | {:error, atom()}
   def get_blocks_mined(address, params \\ %{})
+
   def get_blocks_mined(address, params) when is_address(address) do
     params =
       params
@@ -177,6 +186,7 @@ defmodule Etherscan.API.Accounts do
     |> parse(as: %{"result" => [%MinedBlock{}]})
     |> wrap(:ok)
   end
+
   def get_blocks_mined(_, _), do: @error_invalid_address
 
   @doc """
@@ -191,8 +201,10 @@ defmodule Etherscan.API.Accounts do
       iex> Etherscan.get_uncles_mined("#{@test_miner_address}", params)
       {:ok, [%Etherscan.MinedUncle{}]}
   """
-  @spec get_uncles_mined(address :: String.t(), params :: map()) :: {:ok, list(MinedUncle.t())} | {:error, atom()}
+  @spec get_uncles_mined(address :: String.t(), params :: map()) ::
+          {:ok, list(MinedUncle.t())} | {:error, atom()}
   def get_uncles_mined(address, params \\ %{})
+
   def get_uncles_mined(address, params) when is_address(address) do
     params =
       params
@@ -205,6 +217,7 @@ defmodule Etherscan.API.Accounts do
     |> parse(as: %{"result" => [%MinedUncle{}]})
     |> wrap(:ok)
   end
+
   def get_uncles_mined(_, _), do: @error_invalid_address
 
   @doc """
@@ -219,15 +232,24 @@ defmodule Etherscan.API.Accounts do
       iex> Etherscan.get_token_balance(address, token_address)
       {:ok, #{@test_token_address_balance}}
   """
-  @spec get_token_balance(address :: String.t(), token_address :: String.t()) :: {:ok, non_neg_integer()} | {:error, atom()}
-  def get_token_balance(address, token_address) when is_address(address) and is_address(token_address) do
+  @spec get_token_balance(address :: String.t(), token_address :: String.t()) ::
+          {:ok, non_neg_integer()} | {:error, atom()}
+  def get_token_balance(address, token_address)
+      when is_address(address) and is_address(token_address) do
     "account"
     |> get("tokenbalance", %{address: address, contractaddress: token_address, tag: "latest"})
     |> parse()
     |> String.to_integer()
     |> wrap(:ok)
   end
-  def get_token_balance(address, token_address) when not is_address(address) and is_address(token_address), do: @error_invalid_address
-  def get_token_balance(address, token_address) when not is_address(token_address) and is_address(address), do: @error_invalid_token_address
+
+  def get_token_balance(address, token_address)
+      when not is_address(address) and is_address(token_address),
+      do: @error_invalid_address
+
+  def get_token_balance(address, token_address)
+      when not is_address(token_address) and is_address(address),
+      do: @error_invalid_token_address
+
   def get_token_balance(_, _), do: @error_invalid_address_and_token_address
 end

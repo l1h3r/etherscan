@@ -22,13 +22,15 @@ defmodule Etherscan.API.Transactions do
       iex> response = Etherscan.API.Transactions.get_contract_execution_status(transaction_hash)
       {:ok, %ContractStatus{errDescription: "Bad jump destination", isError: "1"}} = response
   """
-  @spec get_contract_execution_status(transaction_hash :: String.t()) :: {:ok, ContractStatus.t()} | {:error, atom()}
+  @spec get_contract_execution_status(transaction_hash :: String.t()) ::
+          {:ok, ContractStatus.t()} | {:error, atom()}
   def get_contract_execution_status(transaction_hash) when is_address(transaction_hash) do
     "transaction"
     |> get("getstatus", %{txhash: transaction_hash})
     |> parse(as: %{"result" => %ContractStatus{}})
     |> wrap(:ok)
   end
+
   def get_contract_execution_status(_), do: @error_invalid_transaction_hash
 
   @doc """
@@ -36,7 +38,8 @@ defmodule Etherscan.API.Transactions do
 
   Pre-Byzantium fork transactions return null/empty value.
   """
-  @spec get_transaction_receipt_status(transaction_hash :: String.t()) :: {:ok, any()} | {:error, atom()}
+  @spec get_transaction_receipt_status(transaction_hash :: String.t()) ::
+          {:ok, any()} | {:error, atom()}
   def get_transaction_receipt_status(transaction_hash) when is_address(transaction_hash) do
     "transaction"
     |> get("gettxreceiptstatus", %{txhash: transaction_hash})

@@ -12,12 +12,14 @@ defmodule Etherscan.LogsTest do
   describe "get_logs/1" do
     test "returns a log struct" do
       use_cassette "get_logs" do
-        response = %{
-          address: @test_topic_address,
-          topic0: @test_topic_0,
-          topic1: @test_topic_1,
-          topic0_1_opr: "and",
-        } |> Etherscan.get_logs()
+        response =
+          %{
+            address: @test_topic_address,
+            topic0: @test_topic_0,
+            topic1: @test_topic_1,
+            topic0_1_opr: "and"
+          }
+          |> Etherscan.get_logs()
 
         assert {:ok, logs} = response
         assert [%Log{address: @test_topic_address} = log | _] = logs

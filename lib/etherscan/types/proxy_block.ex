@@ -27,35 +27,35 @@ defmodule Etherscan.ProxyBlock do
     :totalDifficulty,
     :transactions,
     :transactionsRoot,
-    :uncles,
+    :uncles
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    author: String.t(),
-    difficulty: String.t(),
-    extraData: String.t(),
-    gasLimit: String.t(),
-    gasUsed: String.t(),
-    hash: String.t(),
-    logsBloom: String.t(),
-    miner: String.t(),
-    mixHash: String.t(),
-    nonce: String.t(),
-    number: String.t(),
-    parentHash: String.t(),
-    receiptsRoot: String.t(),
-    sealFields: list(),
-    sha3Uncles: String.t(),
-    size: String.t(),
-    stateRoot: String.t(),
-    timestamp: String.t(),
-    totalDifficulty: String.t(),
-    transactions: list(ProxyTransaction.t()),
-    transactionsRoot: String.t(),
-    uncles: list(),
-  }
+          author: String.t(),
+          difficulty: String.t(),
+          extraData: String.t(),
+          gasLimit: String.t(),
+          gasUsed: String.t(),
+          hash: String.t(),
+          logsBloom: String.t(),
+          miner: String.t(),
+          mixHash: String.t(),
+          nonce: String.t(),
+          number: String.t(),
+          parentHash: String.t(),
+          receiptsRoot: String.t(),
+          sealFields: list(),
+          sha3Uncles: String.t(),
+          size: String.t(),
+          stateRoot: String.t(),
+          timestamp: String.t(),
+          totalDifficulty: String.t(),
+          transactions: list(ProxyTransaction.t()),
+          transactionsRoot: String.t(),
+          uncles: list()
+        }
 end
 
 defimpl Poison.Decoder, for: Etherscan.ProxyBlock do
@@ -68,7 +68,7 @@ defimpl Poison.Decoder, for: Etherscan.ProxyBlock do
     :number,
     :size,
     :timestamp,
-    :totalDifficulty,
+    :totalDifficulty
   ]
 
   def decode(value, _options) do

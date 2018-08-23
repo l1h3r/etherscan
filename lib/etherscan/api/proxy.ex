@@ -13,7 +13,7 @@ defmodule Etherscan.API.Proxy do
     to: nil,
     value: nil,
     gasPrice: nil,
-    gas: nil,
+    gas: nil
   }
 
   @doc """
@@ -46,6 +46,7 @@ defmodule Etherscan.API.Proxy do
     |> parse(as: %{"result" => %ProxyBlock{transactions: [%ProxyTransaction{}]}})
     |> wrap(:ok)
   end
+
   def eth_get_block_by_number(_), do: @error_invalid_tag
 
   @doc """
@@ -53,17 +54,27 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.eth_get_uncle_by_block_number_and_index("#{@test_proxy_uncle_tag}", "#{@test_proxy_index}")
+      iex> Etherscan.eth_get_uncle_by_block_number_and_index("#{@test_proxy_uncle_tag}", "#{
+    @test_proxy_index
+  }")
       {:ok, %{"number" => "#{@test_proxy_uncle_block_tag}", ...}}
   """
-  def eth_get_uncle_by_block_number_and_index(tag, index) when is_binary(tag) and is_binary(index) do
+  def eth_get_uncle_by_block_number_and_index(tag, index)
+      when is_binary(tag) and is_binary(index) do
     "proxy"
     |> get("eth_getUncleByBlockNumberAndIndex", %{tag: tag, index: index})
     |> parse()
     |> wrap(:ok)
   end
-  def eth_get_uncle_by_block_number_and_index(tag, index) when not is_binary(tag) and is_binary(index), do: @error_invalid_tag
-  def eth_get_uncle_by_block_number_and_index(tag, index) when not is_binary(index) and is_binary(tag), do: @error_invalid_index
+
+  def eth_get_uncle_by_block_number_and_index(tag, index)
+      when not is_binary(tag) and is_binary(index),
+      do: @error_invalid_tag
+
+  def eth_get_uncle_by_block_number_and_index(tag, index)
+      when not is_binary(index) and is_binary(tag),
+      do: @error_invalid_index
+
   def eth_get_uncle_by_block_number_and_index(_, _), do: @error_invalid_tag_and_index
 
   @doc """
@@ -82,6 +93,7 @@ defmodule Etherscan.API.Proxy do
     |> hex_to_number()
     |> wrap(:ok)
   end
+
   def eth_get_block_transaction_count_by_number(_), do: @error_invalid_tag
 
   @doc """
@@ -99,6 +111,7 @@ defmodule Etherscan.API.Proxy do
     |> parse(as: %{"result" => %ProxyTransaction{}})
     |> wrap(:ok)
   end
+
   def eth_get_transaction_by_hash(_), do: @error_invalid_transaction_hash
 
   @doc """
@@ -107,17 +120,27 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.eth_get_transaction_by_block_number_and_index("#{@test_proxy_block_tag}", "#{@test_proxy_index}")
+      iex> Etherscan.eth_get_transaction_by_block_number_and_index("#{@test_proxy_block_tag}", "#{
+    @test_proxy_index
+  }")
       {:ok, %Etherscan.ProxyTransaction{}}
   """
-  def eth_get_transaction_by_block_number_and_index(tag, index) when is_binary(tag) and is_binary(index) do
+  def eth_get_transaction_by_block_number_and_index(tag, index)
+      when is_binary(tag) and is_binary(index) do
     "proxy"
     |> get("eth_getTransactionByBlockNumberAndIndex", %{tag: tag, index: index})
     |> parse(as: %{"result" => %ProxyTransaction{}})
     |> wrap(:ok)
   end
-  def eth_get_transaction_by_block_number_and_index(tag, index) when not is_binary(tag) and is_binary(index), do: @error_invalid_tag
-  def eth_get_transaction_by_block_number_and_index(tag, index) when not is_binary(index) and is_binary(tag), do: @error_invalid_index
+
+  def eth_get_transaction_by_block_number_and_index(tag, index)
+      when not is_binary(tag) and is_binary(index),
+      do: @error_invalid_tag
+
+  def eth_get_transaction_by_block_number_and_index(tag, index)
+      when not is_binary(index) and is_binary(tag),
+      do: @error_invalid_index
+
   def eth_get_transaction_by_block_number_and_index(_, _), do: @error_invalid_tag_and_index
 
   @doc """
@@ -135,6 +158,7 @@ defmodule Etherscan.API.Proxy do
     |> hex_to_number()
     |> wrap(:ok)
   end
+
   def eth_get_transaction_count(_), do: @error_invalid_address
 
   @doc """
@@ -155,6 +179,7 @@ defmodule Etherscan.API.Proxy do
     |> parse()
     |> wrap(:ok)
   end
+
   def eth_send_raw_transaction(_), do: @error_invalid_hex
 
   @doc """
@@ -172,6 +197,7 @@ defmodule Etherscan.API.Proxy do
     |> parse(as: %{"result" => %ProxyTransactionReceipt{}})
     |> wrap(:ok)
   end
+
   def eth_get_transaction_receipt(_), do: @error_invalid_transaction_hash
 
   @doc """
@@ -189,6 +215,7 @@ defmodule Etherscan.API.Proxy do
     |> parse()
     |> wrap(:ok)
   end
+
   def eth_call(to, data) when not is_binary(to) and is_binary(data), do: @error_invalid_to
   def eth_call(to, data) when not is_binary(data) and is_binary(to), do: @error_invalid_data
   def eth_call(_, _), do: @error_invalid_to_and_data
@@ -207,8 +234,13 @@ defmodule Etherscan.API.Proxy do
     |> parse()
     |> wrap(:ok)
   end
-  def eth_get_code(address, tag) when not is_binary(address) and is_binary(tag), do: @error_invalid_address
-  def eth_get_code(address, tag) when not is_binary(tag) and is_binary(address), do: @error_invalid_tag
+
+  def eth_get_code(address, tag) when not is_binary(address) and is_binary(tag),
+    do: @error_invalid_address
+
+  def eth_get_code(address, tag) when not is_binary(tag) and is_binary(address),
+    do: @error_invalid_tag
+
   def eth_get_code(_, _), do: @error_invalid_address_and_tag
 
   @doc """
@@ -216,7 +248,9 @@ defmodule Etherscan.API.Proxy do
 
   ## Example
 
-      iex> Etherscan.eth_get_storage_at("#{@test_proxy_storage_address}", "#{@test_proxy_storage_position}")
+      iex> Etherscan.eth_get_storage_at("#{@test_proxy_storage_address}", "#{
+    @test_proxy_storage_position
+  }")
       {:ok, "#{@test_proxy_storage_result}"}
   """
   def eth_get_storage_at(address, position) when is_binary(address) and is_binary(position) do
@@ -225,8 +259,13 @@ defmodule Etherscan.API.Proxy do
     |> parse()
     |> wrap(:ok)
   end
-  def eth_get_storage_at(address, position) when not is_binary(address) and is_binary(position), do: @error_invalid_address
-  def eth_get_storage_at(address, position) when not is_binary(position) and is_binary(address), do: @error_invalid_position
+
+  def eth_get_storage_at(address, position) when not is_binary(address) and is_binary(position),
+    do: @error_invalid_address
+
+  def eth_get_storage_at(address, position) when not is_binary(position) and is_binary(address),
+    do: @error_invalid_position
+
   def eth_get_storage_at(_, _), do: @error_invalid_address_and_position
 
   @doc """
@@ -268,5 +307,6 @@ defmodule Etherscan.API.Proxy do
     |> parse()
     |> wrap(:ok)
   end
+
   def eth_estimate_gas(_), do: @error_invalid_params
 end

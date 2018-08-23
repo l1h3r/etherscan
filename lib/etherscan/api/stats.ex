@@ -51,7 +51,8 @@ defmodule Etherscan.API.Stats do
       iex> Etherscan.get_token_supply("#{@test_token_address}")
       {:ok, #{@test_token_supply}}
   """
-  @spec get_token_supply(token_address :: String.t()) :: {:ok, non_neg_integer()} | {:error, atom()}
+  @spec get_token_supply(token_address :: String.t()) ::
+          {:ok, non_neg_integer()} | {:error, atom()}
   def get_token_supply(token_address) when is_address(token_address) do
     "stats"
     |> get("tokensupply", %{contractaddress: token_address})
@@ -59,5 +60,6 @@ defmodule Etherscan.API.Stats do
     |> String.to_integer()
     |> wrap(:ok)
   end
+
   def get_token_supply(_), do: @error_invalid_token_address
 end

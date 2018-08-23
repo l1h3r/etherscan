@@ -21,29 +21,29 @@ defmodule Etherscan.Transaction do
     :contractAddress,
     :cumulativeGasUsed,
     :gasUsed,
-    :confirmations,
+    :confirmations
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    blockNumber: String.t(),
-    timeStamp: String.t(),
-    hash: String.t(),
-    nonce: String.t(),
-    blockHash: String.t(),
-    transactionIndex: String.t(),
-    from: String.t(),
-    to: String.t(),
-    value: String.t(),
-    gas: String.t(),
-    gasPrice: String.t(),
-    isError: String.t(),
-    txreceipt_status: String.t(),
-    input: String.t(),
-    contractAddress: String.t(),
-    cumulativeGasUsed: String.t(),
-    gasUsed: String.t(),
-    confirmations: String.t(),
-  }
+          blockNumber: String.t(),
+          timeStamp: String.t(),
+          hash: String.t(),
+          nonce: String.t(),
+          blockHash: String.t(),
+          transactionIndex: String.t(),
+          from: String.t(),
+          to: String.t(),
+          value: String.t(),
+          gas: String.t(),
+          gasPrice: String.t(),
+          isError: String.t(),
+          txreceipt_status: String.t(),
+          input: String.t(),
+          contractAddress: String.t(),
+          cumulativeGasUsed: String.t(),
+          gasUsed: String.t(),
+          confirmations: String.t()
+        }
 end

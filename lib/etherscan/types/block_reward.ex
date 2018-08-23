@@ -11,17 +11,17 @@ defmodule Etherscan.BlockReward do
     :blockReward,
     :timeStamp,
     :uncleInclusionReward,
-    :uncles,
+    :uncles
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    blockMiner: String.t(),
-    blockNumber: String.t(),
-    blockReward: String.t(),
-    timeStamp: String.t(),
-    uncleInclusionReward: String.t(),
-    uncles: list(BlockRewardUncle.t()),
-  }
+          blockMiner: String.t(),
+          blockNumber: String.t(),
+          blockReward: String.t(),
+          timeStamp: String.t(),
+          uncleInclusionReward: String.t(),
+          uncles: list(BlockRewardUncle.t())
+        }
 end

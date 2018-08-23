@@ -6,14 +6,14 @@ defmodule Etherscan.BlockRewardUncle do
   @attributes [
     :blockreward,
     :miner,
-    :unclePosition,
+    :unclePosition
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    blockreward: String.t(),
-    miner: String.t(),
-    unclePosition: String.t(),
-  }
+          blockreward: String.t(),
+          miner: String.t(),
+          unclePosition: String.t()
+        }
 end

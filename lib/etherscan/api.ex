@@ -73,6 +73,7 @@ defmodule Etherscan.API do
     case Application.get_env(:etherscan, :network) do
       network when network in @api_networks ->
         Keyword.get(@api_network_urls, network)
+
       _ ->
         Keyword.get(@api_network_urls, :default)
     end

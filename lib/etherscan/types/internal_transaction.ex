@@ -17,25 +17,25 @@ defmodule Etherscan.InternalTransaction do
     :to,
     :traceId,
     :type,
-    :value,
+    :value
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    blockNumber: String.t(),
-    contractAddress: String.t(),
-    errCode: String.t(),
-    from: String.t(),
-    gas: String.t(),
-    gasUsed: String.t(),
-    hash: String.t(),
-    input: String.t(),
-    isError: String.t(),
-    timeStamp: String.t(),
-    to: String.t(),
-    traceId: String.t(),
-    type: String.t(),
-    value: String.t(),
-  }
+          blockNumber: String.t(),
+          contractAddress: String.t(),
+          errCode: String.t(),
+          from: String.t(),
+          gas: String.t(),
+          gasUsed: String.t(),
+          hash: String.t(),
+          input: String.t(),
+          isError: String.t(),
+          timeStamp: String.t(),
+          to: String.t(),
+          traceId: String.t(),
+          type: String.t(),
+          value: String.t()
+        }
 end

@@ -23,33 +23,33 @@ defmodule Etherscan.ProxyTransaction do
     :to,
     :transactionIndex,
     :v,
-    :value,
+    :value
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    blockHash: String.t(),
-    blockNumber: String.t(),
-    condition: String.t(),
-    creates: String.t(),
-    from: String.t(),
-    gas: String.t(),
-    gasPrice: String.t(),
-    hash: String.t(),
-    input: String.t(),
-    networkId: integer(),
-    nonce: String.t(),
-    publicKey: String.t(),
-    r: String.t(),
-    raw: String.t(),
-    s: String.t(),
-    standardV: String.t(),
-    to: String.t(),
-    transactionIndex: String.t(),
-    v: String.t(),
-    value: String.t(),
-  }
+          blockHash: String.t(),
+          blockNumber: String.t(),
+          condition: String.t(),
+          creates: String.t(),
+          from: String.t(),
+          gas: String.t(),
+          gasPrice: String.t(),
+          hash: String.t(),
+          input: String.t(),
+          networkId: integer(),
+          nonce: String.t(),
+          publicKey: String.t(),
+          r: String.t(),
+          raw: String.t(),
+          s: String.t(),
+          standardV: String.t(),
+          to: String.t(),
+          transactionIndex: String.t(),
+          v: String.t(),
+          value: String.t()
+        }
 end
 
 defimpl Poison.Decoder, for: Etherscan.ProxyTransaction do
@@ -63,7 +63,7 @@ defimpl Poison.Decoder, for: Etherscan.ProxyTransaction do
     :transactionIndex,
     :cumulativeGasUsed,
     :nonce,
-    :value,
+    :value
   ]
 
   def decode(value, _options) do

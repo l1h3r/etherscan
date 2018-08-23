@@ -23,9 +23,11 @@ defmodule Etherscan.API.Contracts do
     "contract"
     |> get("getabi", %{address: address})
     |> parse()
-    |> Poison.decode!() # Decode again. ABI result is JSON
+    # Decode again. ABI result is JSON
+    |> Poison.decode!()
     |> wrap(:ok)
   end
+
   def get_contract_abi(_), do: @error_invalid_address
 
   @doc """
@@ -42,5 +44,6 @@ defmodule Etherscan.API.Contracts do
     |> parse()
     |> wrap(:ok)
   end
+
   def get_contract_source(_), do: @error_invalid_address
 end

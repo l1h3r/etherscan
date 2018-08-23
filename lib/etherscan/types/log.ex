@@ -13,21 +13,21 @@ defmodule Etherscan.Log do
     :timeStamp,
     :topics,
     :transactionHash,
-    :transactionIndex,
+    :transactionIndex
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    address: String.t(),
-    blockNumber: String.t(),
-    data: String.t(),
-    gasPrice: String.t(),
-    gasUsed: String.t(),
-    logIndex: String.t(),
-    timeStamp: String.t(),
-    topics: list(String.t()),
-    transactionHash: String.t(),
-    transactionIndex: String.t(),
-  }
+          address: String.t(),
+          blockNumber: String.t(),
+          data: String.t(),
+          gasPrice: String.t(),
+          gasUsed: String.t(),
+          logIndex: String.t(),
+          timeStamp: String.t(),
+          topics: list(String.t()),
+          transactionHash: String.t(),
+          transactionIndex: String.t()
+        }
 end

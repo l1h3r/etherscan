@@ -14,24 +14,24 @@ defmodule Etherscan.ProxyTransactionReceipt do
     :root,
     :status,
     :transactionHash,
-    :transactionIndex,
+    :transactionIndex
   ]
 
   defstruct @attributes
 
   @type t :: %__MODULE__{
-    blockHash: String.t(),
-    blockNumber: String.t(),
-    contractAddress: String.t(),
-    cumulativeGasUsed: String.t(),
-    gasUsed: String.t(),
-    logs: list(),
-    logsBloom: String.t(),
-    root: String.t(),
-    status: integer(),
-    transactionHash: String.t(),
-    transactionIndex: String.t(),
-  }
+          blockHash: String.t(),
+          blockNumber: String.t(),
+          contractAddress: String.t(),
+          cumulativeGasUsed: String.t(),
+          gasUsed: String.t(),
+          logs: list(),
+          logsBloom: String.t(),
+          root: String.t(),
+          status: integer(),
+          transactionHash: String.t(),
+          transactionIndex: String.t()
+        }
 end
 
 defimpl Poison.Decoder, for: Etherscan.ProxyTransactionReceipt do
@@ -41,7 +41,7 @@ defimpl Poison.Decoder, for: Etherscan.ProxyTransactionReceipt do
     :gasUsed,
     :blockNumber,
     :transactionIndex,
-    :cumulativeGasUsed,
+    :cumulativeGasUsed
   ]
 
   def decode(value, _options) do

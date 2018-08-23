@@ -27,13 +27,13 @@ defmodule Etherscan.AccountsTest do
     test "with valid addresses" do
       use_cassette "get_balances" do
         response = Etherscan.get_balances([@test_address1, @test_address2, @test_address3])
+
         assert {:ok,
-          [
-            %{"account" => @test_address1, "balance" => @test_address1_balance},
-            %{"account" => @test_address2, "balance" => @test_address2_balance},
-            %{"account" => @test_address3, "balance" => @test_address3_balance}
-          ]
-        } = response
+                [
+                  %{"account" => @test_address1, "balance" => @test_address1_balance},
+                  %{"account" => @test_address2, "balance" => @test_address2_balance},
+                  %{"account" => @test_address3, "balance" => @test_address3_balance}
+                ]} = response
       end
     end
 

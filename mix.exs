@@ -6,14 +6,14 @@ defmodule Etherscan.Mixfile do
       app: :etherscan,
       version: "2.0.1",
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       description: description(),
       package: package(),
       aliases: aliases(),
       deps: deps(),
       name: "Etherscan",
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.html": :test]
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.html": :test]
     ]
   end
 
@@ -47,14 +47,14 @@ defmodule Etherscan.Mixfile do
       {:ex_doc, "~> 0.18", only: :dev},
       {:excoveralls, "~> 0.7", only: :test},
       {:dialyxir, "~> 0.5", only: :dev, runtime: false},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
 
   defp aliases do
     [
-      "watch": ["test --stale --listen-on-stdin"],
-      "lint": ["dialyzer", "credo"],
+      watch: ["test --stale --listen-on-stdin"],
+      lint: ["dialyzer", "credo"]
     ]
   end
 end

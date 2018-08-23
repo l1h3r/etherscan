@@ -16,35 +16,35 @@ defmodule Etherscan.UtilTest do
     end
 
     test "converts wei to mwei" do
-      assert Util.convert(1000000, denomination: :mwei) == "1.0"
+      assert Util.convert(1_000_000, denomination: :mwei) == "1.0"
       assert Util.convert("1000000", denomination: :mwei) == "1.0"
     end
 
     test "converts wei to gwei/shannon/nano" do
-      assert Util.convert(1000000000, denomination: :gwei) == "1.0"
-      assert Util.convert(1000000000, denomination: :shannon) == "1.0"
-      assert Util.convert(1000000000, denomination: :nano) == "1.0"
+      assert Util.convert(1_000_000_000, denomination: :gwei) == "1.0"
+      assert Util.convert(1_000_000_000, denomination: :shannon) == "1.0"
+      assert Util.convert(1_000_000_000, denomination: :nano) == "1.0"
       assert Util.convert("1000000000", denomination: :gwei) == "1.0"
       assert Util.convert("1000000000", denomination: :shannon) == "1.0"
       assert Util.convert("1000000000", denomination: :nano) == "1.0"
     end
 
     test "converts wei to szabo/micro" do
-      assert Util.convert(1000000000000, denomination: :szabo) == "1.0"
-      assert Util.convert(1000000000000, denomination: :micro) == "1.0"
+      assert Util.convert(1_000_000_000_000, denomination: :szabo) == "1.0"
+      assert Util.convert(1_000_000_000_000, denomination: :micro) == "1.0"
       assert Util.convert("1000000000000", denomination: :szabo) == "1.0"
       assert Util.convert("1000000000000", denomination: :micro) == "1.0"
     end
 
     test "converts wei to finney/milli" do
-      assert Util.convert(1000000000000000, denomination: :finney) == "1.0"
-      assert Util.convert(1000000000000000, denomination: :milli) == "1.0"
+      assert Util.convert(1_000_000_000_000_000, denomination: :finney) == "1.0"
+      assert Util.convert(1_000_000_000_000_000, denomination: :milli) == "1.0"
       assert Util.convert("1000000000000000", denomination: :finney) == "1.0"
       assert Util.convert("1000000000000000", denomination: :milli) == "1.0"
     end
 
     test "converts wei to ether" do
-      assert Util.convert(1000000000000000000, denomination: :ether) == "1.0"
+      assert Util.convert(1_000_000_000_000_000_000, denomination: :ether) == "1.0"
       assert Util.convert("1000000000000000000", denomination: :ether) == "1.0"
     end
   end
@@ -75,7 +75,7 @@ defmodule Etherscan.UtilTest do
     test "with valid hex converts to number" do
       assert {:ok, 0} = Util.hex_to_number("0x0")
       assert {:ok, 211} = Util.hex_to_number("0xd3")
-      assert {:ok, 5531758} = Util.hex_to_number("0x54686e")
+      assert {:ok, 5_531_758} = Util.hex_to_number("0x54686e")
     end
 
     test "with invalid hex returns error" do
@@ -90,7 +90,7 @@ defmodule Etherscan.UtilTest do
     test "with valid hex converts to number" do
       assert Util.safe_hex_to_number("0x0") == 0
       assert Util.safe_hex_to_number("0xd3") == 211
-      assert Util.safe_hex_to_number("0x54686e") == 5531758
+      assert Util.safe_hex_to_number("0x54686e") == 5_531_758
     end
 
     test "with invalid hex returns 0" do
@@ -103,7 +103,7 @@ defmodule Etherscan.UtilTest do
 
   describe "number_to_hex/1" do
     test "converts to hex" do
-      assert Util.number_to_hex(4735742) == "0x4842FE"
+      assert Util.number_to_hex(4_735_742) == "0x4842FE"
     end
 
     test "with string number" do

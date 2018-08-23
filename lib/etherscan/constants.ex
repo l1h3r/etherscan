@@ -8,13 +8,13 @@ defmodule Etherscan.Constants do
       # API
       @api_request_opts [
         timeout: 20_000,
-        recv_timeout: 20_000,
+        recv_timeout: 20_000
       ]
       @api_network_urls [
         default: "https://api.etherscan.io/api",
         ropsten: "https://api-ropsten.etherscan.io/api",
-        kovan:   "https://api-kovan.etherscan.io/api",
-        rinkeby: "https://api-rinkeby.etherscan.io/api",
+        kovan: "https://api-kovan.etherscan.io/api",
+        rinkeby: "https://api-rinkeby.etherscan.io/api"
       ]
       @api_networks Keyword.keys(@api_network_urls)
 
@@ -61,15 +61,15 @@ defmodule Etherscan.Constants do
       @test_address1_balance "40807.16856607000227086246"
       @test_address2_balance "332.56713622282705955513"
       @test_address3_balance "0.18517882999999998872"
-      @test_token_address_balance 135499
+      @test_token_address_balance 135_499
 
-      @test_token_supply 21265524714464
-      @test_block_number 2165403
+      @test_token_supply 21_265_524_714_464
+      @test_block_number 2_165_403
       @test_eth_supply "101493235.99899999797344207764"
       @test_eth_btc_price "0.04259"
       @test_eth_usd_price "272.29"
 
-      @test_proxy_block_number 6196278
+      @test_proxy_block_number 6_196_278
       @test_proxy_block_tag "0x10d4f"
       @test_proxy_uncle_tag "0x210A9B"
       @test_proxy_uncle_block_tag "0x210a99"
@@ -87,7 +87,7 @@ defmodule Etherscan.Constants do
       @test_proxy_value "0xff22"
       @test_proxy_gas_price "0x051da038cc"
       @test_proxy_gas "0xffffff"
-      @test_proxy_current_gas 2100000000
+      @test_proxy_current_gas 2_100_000_000
       @test_proxy_block_transaction_count 3
       @test_proxy_transaction_count 44893
       @test_proxy_eth_call_result "0x00000000000000000000000000000000000000000000000000601d8888141c00"
