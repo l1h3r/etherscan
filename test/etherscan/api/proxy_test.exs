@@ -127,7 +127,7 @@ defmodule Etherscan.ProxyTest do
     test "with valid hex" do
       use_cassette "eth_send_raw_transaction" do
         response = Etherscan.eth_send_raw_transaction(@test_proxy_hex)
-        assert {:ok, %{"message" => "Invalid RLP.", "data" => "RlpIncorrectListLen"}} = response
+        assert {:ok, %{"code" => -32000}} = response
       end
     end
 
@@ -243,7 +243,7 @@ defmodule Etherscan.ProxyTest do
           gas: @test_proxy_gas,
         }
         response = Etherscan.eth_estimate_gas(params)
-        assert {:ok, %{"data" => "Internal(\"Requires higher than upper limit of 80000290\")"}} = response
+        assert {:ok, %{"code" => -32602}} = response
       end
     end
 

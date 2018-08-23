@@ -65,11 +65,11 @@ defmodule Etherscan.Constants do
 
       @test_token_supply 21265524714464
       @test_block_number 2165403
-      @test_eth_supply "101490828.03030000627040863037"
-      @test_eth_btc_price "0.04181"
-      @test_eth_usd_price "266.09"
+      @test_eth_supply "101493235.99899999797344207764"
+      @test_eth_btc_price "0.04259"
+      @test_eth_usd_price "272.29"
 
-      @test_proxy_block_number 6195580
+      @test_proxy_block_number 6196278
       @test_proxy_block_tag "0x10d4f"
       @test_proxy_uncle_tag "0x210A9B"
       @test_proxy_uncle_block_tag "0x210a99"
@@ -87,7 +87,7 @@ defmodule Etherscan.Constants do
       @test_proxy_value "0xff22"
       @test_proxy_gas_price "0x051da038cc"
       @test_proxy_gas "0xffffff"
-      @test_proxy_current_gas 2000000000
+      @test_proxy_current_gas 2100000000
       @test_proxy_block_transaction_count 3
       @test_proxy_transaction_count 44893
       @test_proxy_eth_call_result "0x00000000000000000000000000000000000000000000000000601d8888141c00"

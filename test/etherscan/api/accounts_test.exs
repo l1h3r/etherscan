@@ -96,7 +96,7 @@ defmodule Etherscan.AccountsTest do
       use_cassette "get_transactions_sort" do
         response = Etherscan.get_transactions(@test_address1, %{sort: "desc"})
         assert {:ok, blocks} = response
-        assert [%Transaction{blockNumber: "1961866"} | _] = blocks
+        assert [%Transaction{blockNumber: "5854994"} | _] = blocks
       end
     end
   end

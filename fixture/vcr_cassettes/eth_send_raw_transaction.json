@@ -13,7 +13,7 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"jsonrpc\":\"2.0\",\"error\":{\"code\":-32602,\"message\":\"Invalid RLP.\",\"data\":\"RlpIncorrectListLen\"},\"id\":1}",
+      "body": "{\"jsonrpc\":\"2.0\",\"id\":1,\"error\":{\"code\":-32000,\"message\":\"rlp: value size exceeds available input length\"}}\n",
       "headers": {
         "Cache-Control": "private",
         "Content-Type": "application/json; charset=utf-8",
@@ -22,8 +22,8 @@
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Sun, 17 Dec 2017 09:50:28 GMT",
-        "Content-Length": "102"
+        "Date": "Thu, 23 Aug 2018 00:36:36 GMT",
+        "Content-Length": "108"
       },
       "status_code": 200,
       "type": "ok"

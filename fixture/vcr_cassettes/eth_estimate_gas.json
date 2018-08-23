@@ -13,7 +13,7 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"jsonrpc\":\"2.0\",\"error\":{\"code\":-32015,\"message\":\"Transaction execution error.\",\"data\":\"Internal(\\\"Requires higher than upper limit of 80000290\\\")\"},\"id\":1}",
+      "body": "{\"jsonrpc\":\"2.0\",\"id\":1,\"error\":{\"code\":-32602,\"message\":\"invalid argument 0: json: cannot unmarshal hex number with leading zero digits into Go struct field CallArgs.gasPrice of type *hexutil.Big\"}}\n",
       "headers": {
         "Cache-Control": "private",
         "Content-Type": "application/json; charset=utf-8",
@@ -22,8 +22,8 @@
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Sun, 17 Dec 2017 09:50:27 GMT",
-        "Content-Length": "157"
+        "Date": "Thu, 23 Aug 2018 00:36:35 GMT",
+        "Content-Length": "200"
       },
       "status_code": 200,
       "type": "ok"
