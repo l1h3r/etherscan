@@ -27,4 +27,20 @@ defmodule Etherscan.API.Contracts do
     |> wrap(:ok)
   end
   def get_contract_abi(_), do: @error_invalid_address
+
+  @doc """
+  Get contract source code for contacts with verified source code
+
+  [More Info](https://etherscan.io/contractsVerified)
+
+      iex> Etherscan.get_contract_source("#{@test_contract_address}")
+      {:ok, [%{"name" => _, ...} | _] = contract_source}
+  """
+  def get_contract_source(address) when is_address(address) do
+    "contract"
+    |> get("getsourcecode", %{address: address})
+    |> parse()
+    |> wrap(:ok)
+  end
+  def get_contract_source(_), do: @error_invalid_address
 end

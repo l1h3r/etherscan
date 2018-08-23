@@ -21,6 +21,7 @@ defmodule Etherscan do
   defdelegate get_block_and_uncle_rewards(block_number), to: API.Blocks
 
   defdelegate get_contract_abi(address), to: API.Contracts
+  defdelegate get_contract_source(address), to: API.Contracts
 
   defdelegate get_logs(params), to: API.Logs
 
