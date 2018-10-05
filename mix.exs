@@ -41,13 +41,16 @@ defmodule Etherscan.Mixfile do
 
   defp deps do
     [
-      {:poison, "~> 3.1"},
-      {:httpoison, "~> 1.0"},
-      {:exvcr, "~> 0.9", only: :test},
-      {:ex_doc, "~> 0.18", only: :dev},
-      {:excoveralls, "~> 0.7", only: :test},
-      {:dialyxir, "~> 0.5", only: :dev, runtime: false},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
+      # Core Dependecies
+      {:poison, "~> 4.0"},
+      {:httpoison, "~> 1.3"},
+      # Test Dependecies
+      {:exvcr, "~> 0.10.3", only: :test},
+      {:excoveralls, "~> 0.10.1", only: :test},
+      # Dev Dependecies
+      {:ex_doc, "~> 0.19.1", only: :dev},
+      {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},
+      {:credo, "~> 0.10.2", only: :dev, runtime: false}
     ]
   end
 
