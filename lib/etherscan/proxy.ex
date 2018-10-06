@@ -27,7 +27,7 @@ defmodule Etherscan.Proxy do
           stateRoot: String.t(),
           timestamp: String.t(),
           totalDifficulty: String.t(),
-          transactions: list(ProxyTransaction.t()),
+          transactions: [transaction],
           transactionsRoot: String.t(),
           uncles: list()
         }
@@ -42,7 +42,7 @@ defmodule Etherscan.Proxy do
           gasPrice: String.t(),
           hash: String.t(),
           input: String.t(),
-          networkId: integer(),
+          networkId: integer,
           nonce: String.t(),
           publicKey: String.t(),
           r: String.t(),
@@ -64,7 +64,7 @@ defmodule Etherscan.Proxy do
           logs: list(),
           logsBloom: String.t(),
           root: String.t(),
-          status: integer(),
+          status: integer,
           transactionHash: String.t(),
           transactionIndex: String.t()
         }
