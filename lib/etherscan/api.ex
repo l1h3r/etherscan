@@ -1,87 +1,46 @@
 defmodule Etherscan.API do
   @moduledoc """
-  Etherscan base API module.
+  API helpers for Etherscan
   """
+  alias Etherscan.Config
 
-  use Etherscan.Constants
-  alias Etherscan.Util
+  @address_list_max 20
 
   defmacro __using__(_opts) do
     quote do
+      alias Etherscan.Util
       import Etherscan.API
     end
   end
 
-  @doc """
-  Checks if the provided value is a valid Ethereum address.
-  Currently very naive...
-  """
-  defmacro is_address(value) do
-    quote do
-      is_binary(unquote(value)) and binary_part(unquote(value), 0, 2) == "0x"
-    end
-  end
+  defguard is_address(value) when is_binary(value) and binary_part(value, 0, 2) == "0x"
 
-  defdelegate wrap(value, tag), to: Util
-  defdelegate format_balance(balance), to: Util
-  defdelegate hex_to_number(value), to: Util, as: :safe_hex_to_number
+  defguard is_block(block) when is_integer(block) or block == "latest"
 
-  @spec merge_params(params :: map(), default :: map()) :: map()
-  def merge_params(params, default \\ %{}) do
-    default
-    |> Map.merge(params)
-    |> Map.take(default |> Map.keys())
-  end
+  defguard is_address_list(addresses) when is_list(addresses) and length(addresses) <= @address_list_max
 
   @spec get(module :: String.t(), action :: String.t(), params :: map()) :: String.t()
   def get(module, action, params \\ %{}) do
     module
     |> build_url(action, params)
-    |> HTTPoison.get!([], request_opts())
+    |> HTTPoison.get!([], Config.request_opts())
     |> Map.get(:body)
   end
 
-  @spec parse(response :: any(), opts :: Keyword.t()) :: any()
-  def parse(response, opts \\ []) do
-    response
-    |> Poison.decode!(opts)
-    |> extract()
-  end
-
-  @spec extract(response :: map()) :: any()
-  defp extract(%{"error" => error}), do: error
-  defp extract(%{"result" => result}), do: result
-  defp extract(response), do: response
+  @spec parse(binary) :: term
+  def parse(json), do: json |> Jason.decode!() |> extract()
 
   @spec build_url(module :: String.t(), action :: String.t(), params :: map()) :: String.t()
   defp build_url(module, action, params) do
     params
     |> Map.put(:action, action)
     |> Map.put(:module, module)
-    |> Map.put(:apikey, api_key())
-    |> URI.encode_query()
-    |> (&"#{network_url()}?#{&1}").()
+    |> Map.put(:apikey, Config.api_key())
+    |> Config.api_url()
   end
 
-  @spec api_key :: String.t()
-  defp api_key do
-    Application.get_env(:etherscan, :api_key, "")
-  end
-
-  @spec network_url :: String.t()
-  defp network_url do
-    case Application.get_env(:etherscan, :network) do
-      network when network in @api_networks ->
-        Keyword.get(@api_network_urls, network)
-
-      _ ->
-        Keyword.get(@api_network_urls, :default)
-    end
-  end
-
-  @spec request_opts :: Keyword.t()
-  defp request_opts do
-    opts = Application.get_env(:etherscan, :request, [])
-    Keyword.merge(@api_request_opts, opts)
-  end
+  @spec extract(map) :: term
+  defp extract(%{"error" => error}), do: error
+  defp extract(%{"result" => result}), do: result
+  defp extract(json), do: json
 end

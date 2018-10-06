@@ -42,7 +42,7 @@ defmodule Etherscan.Mixfile do
   defp deps do
     [
       # Core Dependecies
-      {:poison, "~> 4.0"},
+      {:jason, "~> 1.1"},
       {:httpoison, "~> 1.3"},
       # Test Dependecies
       {:exvcr, "~> 0.10.3", only: :test},
