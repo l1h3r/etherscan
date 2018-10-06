@@ -15,15 +15,15 @@
       "binary": false,
       "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":{\"status\":\"1\"}}",
       "headers": {
-        "Cache-Control": "private",
-        "Content-Type": "application/json; charset=utf-8",
-        "Server": "Microsoft-IIS/10.0",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Thu, 23 Aug 2018 00:36:38 GMT",
-        "Content-Length": "53"
+        "Cache-Control": "***",
+        "Content-Type": "***",
+        "Server": "***",
+        "Access-Control-Allow-Origin": "***",
+        "Access-Control-Allow-Headers": "***",
+        "Access-Control-Allow-Methods": "***",
+        "X-Frame-Options": "***",
+        "Date": "***",
+        "Content-Length": "***"
       },
       "status_code": 200,
       "type": "ok"

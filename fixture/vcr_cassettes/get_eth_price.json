@@ -13,17 +13,17 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":{\"ethbtc\":\"0.04259\",\"ethbtc_timestamp\":\"1534984513\",\"ethusd\":\"272.29\",\"ethusd_timestamp\":\"1534984516\"}}",
+      "body": "{\"status\":\"1\",\"message\":\"OK\",\"result\":{\"ethbtc\":\"0.03437\",\"ethbtc_timestamp\":\"1538802363\",\"ethusd\":\"226.75\",\"ethusd_timestamp\":\"1538802363\"}}",
       "headers": {
-        "Cache-Control": "private",
-        "Content-Type": "application/json; charset=utf-8",
-        "Server": "Microsoft-IIS/10.0",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "X-Frame-Options": "SAMEORIGIN",
-        "Date": "Thu, 23 Aug 2018 00:36:39 GMT",
-        "Content-Length": "141"
+        "Cache-Control": "***",
+        "Content-Type": "***",
+        "Server": "***",
+        "Access-Control-Allow-Origin": "***",
+        "Access-Control-Allow-Headers": "***",
+        "Access-Control-Allow-Methods": "***",
+        "X-Frame-Options": "***",
+        "Date": "***",
+        "Content-Length": "***"
       },
       "status_code": 200,
       "type": "ok"
