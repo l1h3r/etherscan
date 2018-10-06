@@ -3,8 +3,97 @@ defmodule Etherscan do
   Documentation for Etherscan.
   """
   use Etherscan.API
-  use Etherscan.Types
   use Etherscan.Constants
+
+  @type block_reward :: %{
+          blockMiner: String.t(),
+          blockNumber: String.t(),
+          blockReward: String.t(),
+          timeStamp: String.t(),
+          uncleInclusionReward: String.t(),
+          uncles: [block_reward_uncle]
+        }
+
+  @type block_reward_uncle :: %{
+          blockreward: String.t(),
+          miner: String.t(),
+          unclePosition: String.t()
+        }
+
+  @type contract_status :: %{
+          isError: String.t(),
+          errDescription: String.t()
+        }
+
+  @type internal_transaction :: %{
+          blockNumber: String.t(),
+          contractAddress: String.t(),
+          errCode: String.t(),
+          from: String.t(),
+          gas: String.t(),
+          gasUsed: String.t(),
+          hash: String.t(),
+          input: String.t(),
+          isError: String.t(),
+          timeStamp: String.t(),
+          to: String.t(),
+          traceId: String.t(),
+          type: String.t(),
+          value: String.t()
+        }
+
+  @type log :: %{
+          address: String.t(),
+          blockNumber: String.t(),
+          data: String.t(),
+          gasPrice: String.t(),
+          gasUsed: String.t(),
+          logIndex: String.t(),
+          timeStamp: String.t(),
+          topics: list(String.t()),
+          transactionHash: String.t(),
+          transactionIndex: String.t()
+        }
+
+  @type mined_block :: %{
+          blockNumber: String.t(),
+          blockReward: String.t(),
+          timeStamp: String.t()
+        }
+
+  @type mined_uncle :: %{
+          blockNumber: String.t(),
+          blockReward: String.t(),
+          timeStamp: String.t()
+        }
+
+  @type transaction :: %{
+          blockNumber: String.t(),
+          timeStamp: String.t(),
+          hash: String.t(),
+          nonce: String.t(),
+          blockHash: String.t(),
+          transactionIndex: String.t(),
+          from: String.t(),
+          to: String.t(),
+          value: String.t(),
+          gas: String.t(),
+          gasPrice: String.t(),
+          isError: String.t(),
+          txreceipt_status: String.t(),
+          input: String.t(),
+          contractAddress: String.t(),
+          cumulativeGasUsed: String.t(),
+          gasUsed: String.t(),
+          confirmations: String.t()
+        }
+
+  @type address :: String.t()
+  @type addresses :: [address]
+  @type token_address :: String.t()
+  @type transaction_hash :: String.t()
+
+  @type response(inner) :: {:ok, inner} | {:error, atom()}
 
   @operators ["and", "or"]
 
@@ -33,6 +122,14 @@ defmodule Etherscan do
     page: 1,
     offset: 20
   }
+
+  @address_list_max 20
+
+  defguardp is_address(value) when is_binary(value) and binary_part(value, 0, 2) == "0x"
+
+  defguardp is_block(block) when is_integer(block) or block == "latest"
+
+  defguardp is_address_list(addresses) when is_list(addresses) and length(addresses) <= @address_list_max
 
   #
   # ============================================================================
@@ -72,12 +169,11 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> addresses = [
-        "#{@test_address1}",
-        "#{@test_address2}",
-      ]
-      iex> Etherscan.get_balances(addresses)
-      {:ok, [#{@test_address1_balance}, #{@test_address2_balance}]}
+      iex> Etherscan.get_balances(["#{@test_address1}", "#{@test_address2}"])
+      {:ok, [
+        %{"account" => "#{@test_address1}", "balance" => "#{@test_address1_balance}"},
+        %{"account" => "#{@test_address2}", "balance" => "#{@test_address2_balance}"}
+      ]}
 
   """
   @spec get_balances(addresses) :: response(map)
@@ -106,17 +202,24 @@ defmodule Etherscan do
   ## Example
 
       iex> params = %{
-        page: 1, # Page number
-        offset: 10, # Max records returned
-        sort: "asc", # Sort returned records
-        startblock: 0, # Start block number
-        endblock: 99999999, # End block number
-      }
-      iex> Etherscan.get_transactions("#{@test_address1}", params)
-      {:ok, [%Etherscan.Transaction{}]}
+      ...>   page: 1, # Page number
+      ...>   offset: 10, # Max records returned
+      ...>   sort: "asc", # Sort returned records
+      ...>   startblock: 0, # Start block number
+      ...>   endblock: 99999999, # End block number
+      ...> }
+      ...> Etherscan.get_transactions("#{@test_address1}", params)
+      {:ok, [
+        %{
+          "blockNumber" => "0",
+          "from" => "GENESIS",
+          "value" => "10000000000000000000000"
+        },
+        ...
+      ]}
 
   """
-  @spec get_transactions(address, params) :: response([transaction])
+  @spec get_transactions(address, map) :: response([transaction])
   def get_transactions(address, params \\ %{})
 
   def get_transactions(address, %{} = params) when is_address(address) do
@@ -143,17 +246,17 @@ defmodule Etherscan do
   ## Example
 
       iex> params = %{
-        page: 1, # Page number
-        offset: 10, # Max records returned
-        sort: "asc", # Sort returned records
-        startblock: 0, # Start block number
-        endblock: 99999999, # End block number
-      }
-      iex> Etherscan.get_internal_transactions("#{@test_address1}", params)
-      {:ok, [%Etherscan.InternalTransaction{}]}
+      ...>   page: 1, # Page number
+      ...>   offset: 10, # Max records returned
+      ...>   sort: "asc", # Sort returned records
+      ...>   startblock: 0, # Start block number
+      ...>   endblock: 99999999, # End block number
+      ...> }
+      ...> Etherscan.get_internal_transactions("#{@test_address1}", params)
+      {:ok, [%{"blockNumber" => "1959340"}]}
 
   """
-  @spec get_internal_transactions(address, params) :: response([internal_transaction])
+  @spec get_internal_transactions(address, map) :: response([internal_transaction])
   def get_internal_transactions(address, params \\ %{})
 
   def get_internal_transactions(address, %{} = params) when is_address(address) do
@@ -180,7 +283,24 @@ defmodule Etherscan do
   ## Example
 
       iex> Etherscan.get_internal_transactions_by_hash("#{@test_transaction_hash}")
-      {:ok, [%Etherscan.InternalTransaction{}]}
+      {:ok, [
+        %{
+          "blockNumber" => "1743059",
+          "contractAddress" => "",
+          "errCode" => "",
+          "from" => "0x2cac6e4b11d6b58f6d3c1c9d5fe8faa89f60e5a2",
+          "gas" => "2300",
+          "gasUsed" => "0",
+          "input" => "",
+          "isError" => "0",
+          "timeStamp" => "1466489498",
+          "to" => "0x66a1c3eaf0f1ffc28d209c0763ed0ca614f3b002",
+          "type" => "call",
+          "value" => "7106740000000000"
+        },
+        ...
+      ]}
+
   """
   @spec get_internal_transactions_by_hash(transaction_hash) :: response([internal_transaction])
   def get_internal_transactions_by_hash(hash) when is_address(hash) do
@@ -204,14 +324,21 @@ defmodule Etherscan do
   ## Example
 
       iex> params = %{
-        page: 1, # Page number
-        offset: 10, # Max records returned
-      }
-      iex> Etherscan.get_blocks_mined("#{@test_miner_address}", params)
-      {:ok, [%Etherscan.MinedBlock{}]}
+      ...>   page: 1, # Page number
+      ...>   offset: 10, # Max records returned
+      ...> }
+      ...> Etherscan.get_blocks_mined("#{@test_miner_address}", params)
+      {:ok, [
+        %{
+          "blockNumber" => "3462296",
+          "timeStamp" => "1491118514",
+          "blockReward" => "5194770940000000000"
+        },
+        ...
+      ]}
 
   """
-  @spec get_blocks_mined(address, params) :: response(mined_block)
+  @spec get_blocks_mined(address, map) :: response(mined_block)
   def get_blocks_mined(address, params \\ %{})
 
   def get_blocks_mined(address, %{} = params) when is_address(address) do
@@ -237,14 +364,21 @@ defmodule Etherscan do
   ## Example
 
       iex> params = %{
-        page: 1, # Page number
-        offset: 10, # Max records returned
-      }
-      iex> Etherscan.get_uncles_mined("#{@test_miner_address}", params)
-      {:ok, [%Etherscan.MinedUncle{}]}
+      ...>   page: 1, # Page number
+      ...>   offset: 10, # Max records returned
+      ...> }
+      ...> Etherscan.get_uncles_mined("#{@test_miner_address}", params)
+      {:ok, [
+        %{
+          "blockNumber" => "2691795",
+          "timeStamp" => "1480077905",
+          "blockReward" => "3125000000000000000"
+        },
+        ...
+      ]}
 
   """
-  @spec get_uncles_mined(address, params) :: response([mined_uncle])
+  @spec get_uncles_mined(address, map) :: response([mined_uncle])
   def get_uncles_mined(address, params \\ %{})
 
   def get_uncles_mined(address, %{} = params) when is_address(address) do
@@ -271,9 +405,7 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> address = "#{@test_token_owner}"
-      iex> token_address = "#{@test_token_address}"
-      iex> Etherscan.get_token_balance(address, token_address)
+      iex> Etherscan.get_token_balance("#{@test_token_owner}", "#{@test_token_address}")
       {:ok, #{@test_token_address_balance}}
 
   """
@@ -307,11 +439,21 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.get_block_and_uncle_rewards("#{@test_block_number}")
-      {:ok, %Etherscan.BlockReward{uncles: [%Etherscan.BlockRewardUncle{}]}}
+      iex> Etherscan.get_block_and_uncle_rewards(#{@test_block_number})
+      {:ok, %{
+        "blockNumber" => "2165403",
+        "blockMiner" => "0x13a06d3dfe21e0db5c016c03ea7d2509f7f8d1e3",
+        "blockReward" => "5314181600000000000",
+        "timeStamp" => "1472533979",
+        "uncleInclusionReward" => "312500000000000000",
+        "uncles" => [
+          %{"blockreward" => "3750000000000000000", "miner" => "0xbcdfc35b86bedf72f0cda046a3c16829a2ef41d1", "unclePosition" => "0"},
+          %{"blockreward" => "3750000000000000000", "miner" => "0x0d0c9855c722ff0c78f21e43aa275a5b8ea60dce", "unclePosition" => "1"}
+        ]
+      }}
 
   """
-  @spec get_block_and_uncle_rewards(block_number) :: response(block_reward)
+  @spec get_block_and_uncle_rewards(block :: non_neg_integer) :: response(block_reward)
   def get_block_and_uncle_rewards(block) when is_integer(block) and block >= 0 do
     params = %{
       blockno: block
@@ -339,7 +481,7 @@ defmodule Etherscan do
   ## Example
 
       iex> Etherscan.get_contract_abi("#{@test_contract_address}")
-      {:ok, [%{"name" => _, ...} | _] = contract_abi}
+      {:ok, [%{"name" => "proposals", "constant" => true}]}
 
   """
   @spec get_contract_abi(address) :: response([map])
@@ -364,7 +506,14 @@ defmodule Etherscan do
   Get contract source code for contacts with verified source code
 
       iex> Etherscan.get_contract_source("#{@test_contract_address}")
-      {:ok, [%{"name" => _, ...} | _] = contract_source}
+      {:ok, %{
+        "CompilerVersion" => "v0.3.1-2016-04-12-3ad5e82",
+        "ConstructorArguments" => "000000000000000000000000da4a4626d3e16e094de3225a751aab7128e965260000000000000000000000004a574510c7014e4ae985403536074abe582adfc80000000000000000000000000000000000000000000000001bc16d674ec80000000000000000000000000000000000000000000000000a968163f0a57b4000000000000000000000000000000000000000000000000000000000000057495e100000000000000000000000000000000000000000000000000000000000000000",
+        "ContractName" => "DAO",
+        "Library" => "",
+        "OptimizationUsed" => "1",
+        "Runs" => "200"
+      }}
 
   """
   @spec get_contract_source(address) :: response([map])
@@ -394,8 +543,9 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.API.Logs.operators()
+      iex> Etherscan.operators()
       #{@operators |> inspect()}
+
   """
   @spec operators :: list(String.t())
   def operators, do: @operators
@@ -415,22 +565,28 @@ defmodule Etherscan do
   ## Example
 
       iex> params = %{
-        address: "#{@test_topic_address}", # Ethereum blockchain address
-        fromBlock: 0, # Start block number
-        toBlock: "latest", # End block number
-        topic0: "#{@test_topic_0}", # The first topic filter
-        topic0_1_opr: "and", # The topic operator between topic0 and topic1
-        topic1: "", # The second topic filter
-        topic1_2_opr: "and", # The topic operator between topic1 and topic2
-        topic2: "", # The third topic filter
-        topic2_3_opr: "and", # The topic operator between topic2 and topic3
-        topic3: "", # The fourth topic filter
-      }
-      iex> Etherscan.get_logs(params)
-      {:ok, [%Etherscan.Log{}]}
+      ...>   address: "#{@test_topic_address}", # Ethereum blockchain address
+      ...>   fromBlock: 0, # Start block number
+      ...>   toBlock: "latest", # End block number
+      ...>   topic0: "#{@test_topic_0}", # The first topic filter
+      ...>   topic0_1_opr: "and", # The topic operator between topic0 and topic1
+      ...>   topic1: "", # The second topic filter
+      ...>   topic1_2_opr: "and", # The topic operator between topic1 and topic2
+      ...>   topic2: "", # The third topic filter
+      ...>   topic2_3_opr: "and", # The topic operator between topic2 and topic3
+      ...>   topic3: "", # The fourth topic filter
+      ...> }
+      ...> Etherscan.get_logs(params)
+      {:ok, [
+        %{
+          "address" => "#{@test_topic_address}",
+          "topics" => [#{@test_topic_0}, ...],
+        },
+        ...
+      ]}
 
   """
-  @spec get_logs(params) :: response([log])
+  @spec get_logs(map) :: response([log])
   def get_logs(%{address: address}) when not is_address(address), do: {:error, :invalid_params}
   def get_logs(%{fromBlock: block}) when not is_block(block), do: {:error, :invalid_params}
   def get_logs(%{toBlock: block}) when not is_block(block), do: {:error, :invalid_params}
@@ -531,13 +687,11 @@ defmodule Etherscan do
 
   ## Examples
 
-      iex> transaction_hash = "#{@test_transaction_hash}"
-      iex> response = Etherscan.API.Transactions.get_contract_execution_status(transaction_hash)
-      {:ok, %ContractStatus{errDescription: "", isError: "0"}} = response
+      iex> Etherscan.get_contract_execution_status("#{@test_transaction_hash}")
+      {:ok, %{"errDescription" => "", "isError" => "0"}}
 
-      iex> transaction_hash = "#{@test_invalid_transaction_hash}"
-      iex> response = Etherscan.API.Transactions.get_contract_execution_status(transaction_hash)
-      {:ok, %ContractStatus{errDescription: "Bad jump destination", isError: "1"}} = response
+      iex> Etherscan.get_contract_execution_status("#{@test_invalid_transaction_hash}")
+      {:ok, %{"errDescription" => "Bad jump destination", "isError" => "1"}}
 
   """
   @spec get_contract_execution_status(transaction_hash) :: response(contract_status)
