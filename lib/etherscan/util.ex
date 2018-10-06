@@ -19,6 +19,18 @@ defmodule Etherscan.Util do
 
   @type maybe_number :: number | binary
 
+  @spec wrap(term, atom) :: {atom, term}
+  def wrap(term, tag) when is_atom(tag) do
+    {tag, term}
+  end
+
+  @spec merge_params(map, map) :: map
+  def merge_params(params, default) do
+    default
+    |> Map.merge(params)
+    |> Map.take(default |> Map.keys())
+  end
+
   @spec convert(maybe_number, keyword) :: binary
   def convert(number, opts \\ [])
 

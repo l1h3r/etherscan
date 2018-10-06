@@ -93,7 +93,7 @@ defmodule Etherscan do
   @type token_address :: String.t()
   @type transaction_hash :: String.t()
 
-  @type response(inner) :: {:ok, inner} | {:error, atom()}
+  @type response(inner) :: {:ok, inner} | {:error, atom}
 
   @operators ["and", "or"]
 
@@ -157,7 +157,7 @@ defmodule Etherscan do
     |> get("balance", params)
     |> parse()
     |> format_ether()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_balance(_) do
@@ -187,7 +187,7 @@ defmodule Etherscan do
     |> get("balancemulti", params)
     |> parse()
     |> format_balances()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_balances(_) do
@@ -225,13 +225,13 @@ defmodule Etherscan do
   def get_transactions(address, %{} = params) when is_address(address) do
     params =
       params
-      |> merge_params(@account_transaction_default_params)
+      |> Util.merge_params(@account_transaction_default_params)
       |> Map.put(:address, address)
 
     "account"
     |> get("txlist", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_transactions(_, _) do
@@ -262,13 +262,13 @@ defmodule Etherscan do
   def get_internal_transactions(address, %{} = params) when is_address(address) do
     params =
       params
-      |> merge_params(@account_transaction_default_params)
+      |> Util.merge_params(@account_transaction_default_params)
       |> Map.put(:address, address)
 
     "account"
     |> get("txlistinternal", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_internal_transactions(_, _) do
@@ -311,7 +311,7 @@ defmodule Etherscan do
     "account"
     |> get("txlistinternal", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_internal_transactions_by_hash(_) do
@@ -344,14 +344,14 @@ defmodule Etherscan do
   def get_blocks_mined(address, %{} = params) when is_address(address) do
     params =
       params
-      |> merge_params(@blocks_mined_default_params)
+      |> Util.merge_params(@blocks_mined_default_params)
       |> Map.put(:blocktype, "blocks")
       |> Map.put(:address, address)
 
     "account"
     |> get("getminedblocks", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_blocks_mined(_, _) do
@@ -384,14 +384,14 @@ defmodule Etherscan do
   def get_uncles_mined(address, %{} = params) when is_address(address) do
     params =
       params
-      |> merge_params(@blocks_mined_default_params)
+      |> Util.merge_params(@blocks_mined_default_params)
       |> Map.put(:blocktype, "uncles")
       |> Map.put(:address, address)
 
     "account"
     |> get("getminedblocks", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_uncles_mined(_, _) do
@@ -421,7 +421,7 @@ defmodule Etherscan do
     |> get("tokenbalance", params)
     |> parse()
     |> String.to_integer()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_token_balance(_, _) do
@@ -462,7 +462,7 @@ defmodule Etherscan do
     "block"
     |> get("getblockreward", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_block_and_uncle_rewards(_) do
@@ -495,7 +495,7 @@ defmodule Etherscan do
     |> parse()
     # Decode again. ABI result is JSON
     |> Jason.decode!()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_contract_abi(_) do
@@ -525,7 +525,7 @@ defmodule Etherscan do
     "contract"
     |> get("getsourcecode", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_contract_source(_) do
@@ -595,12 +595,12 @@ defmodule Etherscan do
   def get_logs(%{topic2_3_opr: op}) when op not in @operators, do: {:error, :invalid_params}
 
   def get_logs(params) when is_map(params) do
-    params = merge_params(params, @get_logs_default_params)
+    params = Util.merge_params(params, @get_logs_default_params)
 
     "logs"
     |> get("getLogs", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_logs(_) do
@@ -628,7 +628,7 @@ defmodule Etherscan do
     |> get("ethsupply")
     |> parse()
     |> format_ether()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   @doc """
@@ -645,7 +645,7 @@ defmodule Etherscan do
     "stats"
     |> get("ethprice")
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   @doc """
@@ -669,7 +669,7 @@ defmodule Etherscan do
     |> get("tokensupply", params)
     |> parse()
     |> String.to_integer()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_token_supply(_) do
@@ -703,7 +703,7 @@ defmodule Etherscan do
     "transaction"
     |> get("getstatus", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_contract_execution_status(_) do
@@ -724,7 +724,7 @@ defmodule Etherscan do
     "transaction"
     |> get("gettxreceiptstatus", params)
     |> parse()
-    |> wrap(:ok)
+    |> Util.wrap(:ok)
   end
 
   def get_transaction_receipt_status(_) do
@@ -733,13 +733,71 @@ defmodule Etherscan do
 
   #
   # ============================================================================
-  # Helper Functions
+  # Geth/Parity Proxy - https://etherscan.io/apis#proxy
   # ============================================================================
   #
 
-  # Wraps a value inside a tagged Tuple using the provided tag.
-  @spec wrap(term, atom) :: {atom, term}
-  defp wrap(term, tag) when is_atom(tag), do: {tag, term}
+  defdelegate eth_block_number,
+    to: Etherscan.Proxy,
+    as: :block_number
+
+  defdelegate eth_get_block_by_number(tag),
+    to: Etherscan.Proxy,
+    as: :get_block_by_number
+
+  defdelegate eth_get_uncle_by_block_number_and_index(tag, index),
+    to: Etherscan.Proxy,
+    as: :get_uncle_by_block_number_and_index
+
+  defdelegate eth_get_block_transaction_count_by_number(tag),
+    to: Etherscan.Proxy,
+    as: :get_block_transaction_count_by_number
+
+  defdelegate eth_get_transaction_by_hash(transaction_hash),
+    to: Etherscan.Proxy,
+    as: :get_transaction_by_hash
+
+  defdelegate eth_get_transaction_by_block_number_and_index(tag, index),
+    to: Etherscan.Proxy,
+    as: :get_transaction_by_block_number_and_index
+
+  defdelegate eth_get_transaction_count(address),
+    to: Etherscan.Proxy,
+    as: :get_transaction_count
+
+  defdelegate eth_send_raw_transaction(hex),
+    to: Etherscan.Proxy,
+    as: :send_raw_transaction
+
+  defdelegate eth_get_transaction_receipt(transaction_hash),
+    to: Etherscan.Proxy,
+    as: :get_transaction_receipt
+
+  defdelegate eth_call(to, data),
+    to: Etherscan.Proxy,
+    as: :call
+
+  defdelegate eth_get_code(address, tag),
+    to: Etherscan.Proxy,
+    as: :get_code
+
+  defdelegate eth_get_storage_at(address, position),
+    to: Etherscan.Proxy,
+    as: :get_storage_at
+
+  defdelegate eth_gas_price,
+    to: Etherscan.Proxy,
+    as: :gas_price
+
+  defdelegate eth_estimate_gas(params),
+    to: Etherscan.Proxy,
+    as: :estimate_gas
+
+  #
+  # ============================================================================
+  # Helper Functions
+  # ============================================================================
+  #
 
   @spec format_ether(binary) :: binary
   defp format_ether(balance), do: Util.convert(balance, as: :ether)
@@ -749,12 +807,5 @@ defmodule Etherscan do
     Enum.map(accounts, fn account ->
       Map.update!(account, "balance", &format_ether/1)
     end)
-  end
-
-  @spec merge_params(map, map) :: map
-  defp merge_params(params, default) do
-    default
-    |> Map.merge(params)
-    |> Map.take(default |> Map.keys())
   end
 end
