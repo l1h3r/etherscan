@@ -2,8 +2,9 @@ defmodule Etherscan do
   @moduledoc """
   Documentation for Etherscan.
   """
-  use Etherscan.API
   use Etherscan.Constants
+  alias Etherscan.API
+  alias Etherscan.Util
 
   @type block_reward :: %{
           blockMiner: String.t(),
@@ -142,8 +143,8 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.get_balance("#{@test_address1}")
-      {:ok, #{@test_address1_balance}}
+      iex> Etherscan.get_balance("#{@test_wallet_1}")
+      {:ok, "40807.17856606999703217298"}
 
   """
   @spec get_balance(address) :: response(non_neg_integer)
@@ -153,11 +154,7 @@ defmodule Etherscan do
       tag: "latest"
     }
 
-    "account"
-    |> get("balance", params)
-    |> parse()
-    |> format_ether()
-    |> Util.wrap(:ok)
+    API.get("account", "balance", params, &format_ether/1)
   end
 
   def get_balance(_) do
@@ -169,10 +166,10 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.get_balances(["#{@test_address1}", "#{@test_address2}"])
+      iex> Etherscan.get_balances(["#{@test_wallet_1}", "#{@test_wallet_2}"])
       {:ok, [
-        %{"account" => "#{@test_address1}", "balance" => "#{@test_address1_balance}"},
-        %{"account" => "#{@test_address2}", "balance" => "#{@test_address2_balance}"}
+        %{"account" => "#{@test_wallet_1}", "balance" => "40807.17856606999703217298"},
+        %{"account" => "#{@test_wallet_2}", "balance" => "332.56713622282705955513"}
       ]}
 
   """
@@ -183,11 +180,7 @@ defmodule Etherscan do
       tag: "latest"
     }
 
-    "account"
-    |> get("balancemulti", params)
-    |> parse()
-    |> format_balances()
-    |> Util.wrap(:ok)
+    API.get("account", "balancemulti", params, &format_balances/1)
   end
 
   def get_balances(_) do
@@ -208,7 +201,7 @@ defmodule Etherscan do
       ...>   startblock: 0, # Start block number
       ...>   endblock: 99999999, # End block number
       ...> }
-      ...> Etherscan.get_transactions("#{@test_address1}", params)
+      ...> Etherscan.get_transactions("#{@test_wallet_1}", params)
       {:ok, [
         %{
           "blockNumber" => "0",
@@ -225,13 +218,10 @@ defmodule Etherscan do
   def get_transactions(address, %{} = params) when is_address(address) do
     params =
       params
-      |> Util.merge_params(@account_transaction_default_params)
+      |> API.merge(@account_transaction_default_params)
       |> Map.put(:address, address)
 
-    "account"
-    |> get("txlist", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("account", "txlist", params)
   end
 
   def get_transactions(_, _) do
@@ -252,7 +242,7 @@ defmodule Etherscan do
       ...>   startblock: 0, # Start block number
       ...>   endblock: 99999999, # End block number
       ...> }
-      ...> Etherscan.get_internal_transactions("#{@test_address1}", params)
+      ...> Etherscan.get_internal_transactions("#{@test_wallet_1}", params)
       {:ok, [%{"blockNumber" => "1959340"}]}
 
   """
@@ -262,13 +252,10 @@ defmodule Etherscan do
   def get_internal_transactions(address, %{} = params) when is_address(address) do
     params =
       params
-      |> Util.merge_params(@account_transaction_default_params)
+      |> API.merge(@account_transaction_default_params)
       |> Map.put(:address, address)
 
-    "account"
-    |> get("txlistinternal", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("account", "txlistinternal", params)
   end
 
   def get_internal_transactions(_, _) do
@@ -282,7 +269,7 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.get_internal_transactions_by_hash("#{@test_transaction_hash}")
+      iex> Etherscan.get_internal_transactions_by_hash("#{@test_transaction_success}")
       {:ok, [
         %{
           "blockNumber" => "1743059",
@@ -308,10 +295,7 @@ defmodule Etherscan do
       txhash: hash
     }
 
-    "account"
-    |> get("txlistinternal", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("account", "txlistinternal", params)
   end
 
   def get_internal_transactions_by_hash(_) do
@@ -327,7 +311,7 @@ defmodule Etherscan do
       ...>   page: 1, # Page number
       ...>   offset: 10, # Max records returned
       ...> }
-      ...> Etherscan.get_blocks_mined("#{@test_miner_address}", params)
+      ...> Etherscan.get_blocks_mined("#{@test_miner}", params)
       {:ok, [
         %{
           "blockNumber" => "3462296",
@@ -344,14 +328,11 @@ defmodule Etherscan do
   def get_blocks_mined(address, %{} = params) when is_address(address) do
     params =
       params
-      |> Util.merge_params(@blocks_mined_default_params)
+      |> API.merge(@blocks_mined_default_params)
       |> Map.put(:blocktype, "blocks")
       |> Map.put(:address, address)
 
-    "account"
-    |> get("getminedblocks", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("account", "getminedblocks", params)
   end
 
   def get_blocks_mined(_, _) do
@@ -367,7 +348,7 @@ defmodule Etherscan do
       ...>   page: 1, # Page number
       ...>   offset: 10, # Max records returned
       ...> }
-      ...> Etherscan.get_uncles_mined("#{@test_miner_address}", params)
+      ...> Etherscan.get_uncles_mined("#{@test_miner}", params)
       {:ok, [
         %{
           "blockNumber" => "2691795",
@@ -384,14 +365,11 @@ defmodule Etherscan do
   def get_uncles_mined(address, %{} = params) when is_address(address) do
     params =
       params
-      |> Util.merge_params(@blocks_mined_default_params)
+      |> API.merge(@blocks_mined_default_params)
       |> Map.put(:blocktype, "uncles")
       |> Map.put(:address, address)
 
-    "account"
-    |> get("getminedblocks", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("account", "getminedblocks", params)
   end
 
   def get_uncles_mined(_, _) do
@@ -405,8 +383,8 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.get_token_balance("#{@test_token_owner}", "#{@test_token_address}")
-      {:ok, #{@test_token_address_balance}}
+      iex> Etherscan.get_token_balance("#{@test_token_owner}", "#{@test_token}")
+      {:ok, "135499"}
 
   """
   @spec get_token_balance(address, token_address) :: response(non_neg_integer)
@@ -417,11 +395,7 @@ defmodule Etherscan do
       tag: "latest"
     }
 
-    "account"
-    |> get("tokenbalance", params)
-    |> parse()
-    |> String.to_integer()
-    |> Util.wrap(:ok)
+    API.get("account", "tokenbalance", params)
   end
 
   def get_token_balance(_, _) do
@@ -439,7 +413,7 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.get_block_and_uncle_rewards(#{@test_block_number})
+      iex> Etherscan.get_block_and_uncle_rewards(#{@test_block})
       {:ok, %{
         "blockNumber" => "2165403",
         "blockMiner" => "0x13a06d3dfe21e0db5c016c03ea7d2509f7f8d1e3",
@@ -459,10 +433,7 @@ defmodule Etherscan do
       blockno: block
     }
 
-    "block"
-    |> get("getblockreward", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("block", "getblockreward", params)
   end
 
   def get_block_and_uncle_rewards(_) do
@@ -480,7 +451,7 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.get_contract_abi("#{@test_contract_address}")
+      iex> Etherscan.get_contract_abi("#{@test_contract}")
       {:ok, [%{"name" => "proposals", "constant" => true}]}
 
   """
@@ -490,12 +461,8 @@ defmodule Etherscan do
       address: address
     }
 
-    "contract"
-    |> get("getabi", params)
-    |> parse()
     # Decode again. ABI result is JSON
-    |> Jason.decode!()
-    |> Util.wrap(:ok)
+    API.get("contract", "getabi", params, &Jason.decode!/1)
   end
 
   def get_contract_abi(_) do
@@ -505,7 +472,7 @@ defmodule Etherscan do
   @doc """
   Get contract source code for contacts with verified source code
 
-      iex> Etherscan.get_contract_source("#{@test_contract_address}")
+      iex> Etherscan.get_contract_source("#{@test_contract}")
       {:ok, %{
         "CompilerVersion" => "v0.3.1-2016-04-12-3ad5e82",
         "ConstructorArguments" => "000000000000000000000000da4a4626d3e16e094de3225a751aab7128e965260000000000000000000000004a574510c7014e4ae985403536074abe582adfc80000000000000000000000000000000000000000000000001bc16d674ec80000000000000000000000000000000000000000000000000a968163f0a57b4000000000000000000000000000000000000000000000000000000000000057495e100000000000000000000000000000000000000000000000000000000000000000",
@@ -522,10 +489,7 @@ defmodule Etherscan do
       address: address
     }
 
-    "contract"
-    |> get("getsourcecode", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("contract", "getsourcecode", params)
   end
 
   def get_contract_source(_) do
@@ -568,7 +532,7 @@ defmodule Etherscan do
       ...>   address: "#{@test_topic_address}", # Ethereum blockchain address
       ...>   fromBlock: 0, # Start block number
       ...>   toBlock: "latest", # End block number
-      ...>   topic0: "#{@test_topic_0}", # The first topic filter
+      ...>   topic0: "#{@test_topic_1}", # The first topic filter
       ...>   topic0_1_opr: "and", # The topic operator between topic0 and topic1
       ...>   topic1: "", # The second topic filter
       ...>   topic1_2_opr: "and", # The topic operator between topic1 and topic2
@@ -580,7 +544,7 @@ defmodule Etherscan do
       {:ok, [
         %{
           "address" => "#{@test_topic_address}",
-          "topics" => [#{@test_topic_0}, ...],
+          "topics" => [#{@test_topic_1}, ...],
         },
         ...
       ]}
@@ -595,12 +559,9 @@ defmodule Etherscan do
   def get_logs(%{topic2_3_opr: op}) when op not in @operators, do: {:error, :invalid_params}
 
   def get_logs(params) when is_map(params) do
-    params = Util.merge_params(params, @get_logs_default_params)
+    params = API.merge(params, @get_logs_default_params)
 
-    "logs"
-    |> get("getLogs", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("logs", "getLogs", params)
   end
 
   def get_logs(_) do
@@ -619,33 +580,26 @@ defmodule Etherscan do
   ## Example
 
       iex> Etherscan.get_eth_supply()
-      {:ok, #{@test_eth_supply}}
+      {:ok, "102395190.40530000627040863037"}
 
   """
   @spec get_eth_supply :: response(non_neg_integer)
   def get_eth_supply do
-    "stats"
-    |> get("ethsupply")
-    |> parse()
-    |> format_ether()
-    |> Util.wrap(:ok)
+    API.get("stats", "ethsupply", %{}, &format_ether/1)
   end
 
   @doc """
-  Get ether price.
+  Get eth price.
 
   ## Example
 
       iex> Etherscan.get_eth_price()
-      {:ok, %{"ethbtc" => #{@test_eth_btc_price}, "ethusd" => #{@test_eth_usd_price}}}
+      {:ok, %{"ethbtc" => "0.03437", "ethusd" => "226.75"}}
 
   """
   @spec get_eth_price :: response(map)
   def get_eth_price do
-    "stats"
-    |> get("ethprice")
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("stats", "ethprice")
   end
 
   @doc """
@@ -655,8 +609,8 @@ defmodule Etherscan do
 
   ## Example
 
-      iex> Etherscan.get_token_supply("#{@test_token_address}")
-      {:ok, #{@test_token_supply}}
+      iex> Etherscan.get_token_supply("#{@test_token}")
+      {:ok, "21265524714464"}
 
   """
   @spec get_token_supply(token_address) :: response(non_neg_integer)
@@ -665,11 +619,7 @@ defmodule Etherscan do
       contractaddress: address
     }
 
-    "stats"
-    |> get("tokensupply", params)
-    |> parse()
-    |> String.to_integer()
-    |> Util.wrap(:ok)
+    API.get("stats", "tokensupply", params)
   end
 
   def get_token_supply(_) do
@@ -687,10 +637,10 @@ defmodule Etherscan do
 
   ## Examples
 
-      iex> Etherscan.get_contract_execution_status("#{@test_transaction_hash}")
+      iex> Etherscan.get_contract_execution_status("#{@test_transaction_success}")
       {:ok, %{"errDescription" => "", "isError" => "0"}}
 
-      iex> Etherscan.get_contract_execution_status("#{@test_invalid_transaction_hash}")
+      iex> Etherscan.get_contract_execution_status("#{@test_transaction_error}")
       {:ok, %{"errDescription" => "Bad jump destination", "isError" => "1"}}
 
   """
@@ -700,10 +650,7 @@ defmodule Etherscan do
       txhash: hash
     }
 
-    "transaction"
-    |> get("getstatus", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("transaction", "getstatus", params)
   end
 
   def get_contract_execution_status(_) do
@@ -721,10 +668,7 @@ defmodule Etherscan do
       txhash: hash
     }
 
-    "transaction"
-    |> get("gettxreceiptstatus", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("transaction", "gettxreceiptstatus", params)
   end
 
   def get_transaction_receipt_status(_) do

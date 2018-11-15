@@ -4,8 +4,8 @@ defmodule Etherscan.Proxy do
 
   [Etherscan API Documentation](https://etherscan.io/apis#proxy)
   """
-  use Etherscan.API
   use Etherscan.Constants
+  alias Etherscan.API
 
   @type block :: %{
           author: String.t(),
@@ -89,11 +89,7 @@ defmodule Etherscan.Proxy do
   """
   @spec block_number :: response(term)
   def block_number do
-    "proxy"
-    |> get("eth_blockNumber")
-    |> parse()
-    # |> hex_to_number()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_blockNumber")
   end
 
   @doc """
@@ -112,10 +108,7 @@ defmodule Etherscan.Proxy do
       boolean: true
     }
 
-    "proxy"
-    |> get("eth_getBlockByNumber", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getBlockByNumber", params)
   end
 
   def get_block_by_number(_) do
@@ -138,10 +131,7 @@ defmodule Etherscan.Proxy do
       index: index
     }
 
-    "proxy"
-    |> get("eth_getUncleByBlockNumberAndIndex", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getUncleByBlockNumberAndIndex", params)
   end
 
   def get_uncle_by_block_number_and_index(_, _) do
@@ -164,11 +154,7 @@ defmodule Etherscan.Proxy do
       tag: tag
     }
 
-    "proxy"
-    |> get("eth_getBlockTransactionCountByNumber", params)
-    |> parse()
-    # |> hex_to_number()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getBlockTransactionCountByNumber", params)
   end
 
   def get_block_transaction_count_by_number(_) do
@@ -190,10 +176,7 @@ defmodule Etherscan.Proxy do
       txhash: transaction_hash
     }
 
-    "proxy"
-    |> get("eth_getTransactionByHash", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getTransactionByHash", params)
   end
 
   def get_transaction_by_hash(_) do
@@ -217,10 +200,7 @@ defmodule Etherscan.Proxy do
       index: index
     }
 
-    "proxy"
-    |> get("eth_getTransactionByBlockNumberAndIndex", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getTransactionByBlockNumberAndIndex", params)
   end
 
   def get_transaction_by_block_number_and_index(_, _) do
@@ -243,11 +223,7 @@ defmodule Etherscan.Proxy do
       tag: "latest"
     }
 
-    "proxy"
-    |> get("eth_getTransactionCount", params)
-    |> parse()
-    # |> hex_to_number()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getTransactionCount", params)
   end
 
   def get_transaction_count(_) do
@@ -273,10 +249,7 @@ defmodule Etherscan.Proxy do
       hex: hex
     }
 
-    "proxy"
-    |> get("eth_sendRawTransaction", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_sendRawTransaction", params)
   end
 
   def send_raw_transaction(_) do
@@ -298,10 +271,7 @@ defmodule Etherscan.Proxy do
       txhash: transaction_hash
     }
 
-    "proxy"
-    |> get("eth_getTransactionReceipt", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getTransactionReceipt", params)
   end
 
   def get_transaction_receipt(_) do
@@ -326,10 +296,7 @@ defmodule Etherscan.Proxy do
       tag: "latest"
     }
 
-    "proxy"
-    |> get("eth_call", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_call", params)
   end
 
   def call(_, _) do
@@ -352,10 +319,7 @@ defmodule Etherscan.Proxy do
       tag: tag
     }
 
-    "proxy"
-    |> get("eth_getCode", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getCode", params)
   end
 
   def get_code(_, _) do
@@ -379,10 +343,7 @@ defmodule Etherscan.Proxy do
       tag: "latest"
     }
 
-    "proxy"
-    |> get("eth_getStorageAt", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_getStorageAt", params)
   end
 
   def get_storage_at(_, _) do
@@ -400,11 +361,7 @@ defmodule Etherscan.Proxy do
   """
   @spec gas_price :: response(term)
   def gas_price do
-    "proxy"
-    |> get("eth_gasPrice")
-    |> parse()
-    # |> hex_to_number()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_gasPrice")
   end
 
   @doc """
@@ -425,12 +382,9 @@ defmodule Etherscan.Proxy do
   """
   @spec estimate_gas(map) :: response(term)
   def estimate_gas(%{to: _, value: _, gasPrice: _, gas: _} = params) do
-    params = Util.merge_params(params, @estimate_gas_default_params)
+    params = API.merge(params, @estimate_gas_default_params)
 
-    "proxy"
-    |> get("eth_estimateGas", params)
-    |> parse()
-    |> Util.wrap(:ok)
+    API.get("proxy", "eth_estimateGas", params)
   end
 
   def estimate_gas(_) do

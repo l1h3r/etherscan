@@ -3,34 +3,20 @@ defmodule Etherscan.Constants do
 
   defmacro __using__(_) do
     quote do
-      @test_address1 "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
-      @test_address2 "0x63a9975ba31b0b9626b34300f7f627147df1f526"
-      @test_address3 "0x198ef1ec325a96cc354c7266a038be8b5c558f67"
-      @test_miner_address "0x9dd134d14d1e65f84b706d6f205cd5b1cd03a46b"
-      @test_token_address "0x57d90b64a1a57749b0f932f1a3395792e12e7055"
-      @test_contract_address "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413"
+      @test_block 2_165_403
+      @test_wallet_1 "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
+      @test_wallet_2 "0x63a9975ba31b0b9626b34300f7f627147df1f526"
+      @test_wallet_3 "0x198ef1ec325a96cc354c7266a038be8b5c558f67"
+      @test_miner "0x9dd134d14d1e65f84b706d6f205cd5b1cd03a46b"
+      @test_token "0x57d90b64a1a57749b0f932f1a3395792e12e7055"
       @test_token_owner "0xe04f27eb70e025b78871a2ad7eabe85e61212761"
-      @test_transaction_hash "0x40eb908387324f2b575b4879cd9d7188f69c8fc9d87c901b9e2daaea4b442170"
-      @test_transaction_hash_2 "0x513c1ba0bebf66436b5fed86ab668452b7805593c05073eb2d51d3a52f480a76"
-      @test_invalid_transaction_hash "0x15f8e5ea1079d9a0bb04a4c58ae5fe7654b5b2b4463375ff7ffb490aa0032f3a"
-
+      @test_contract "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413"
+      @test_transaction_success "0x40eb908387324f2b575b4879cd9d7188f69c8fc9d87c901b9e2daaea4b442170"
+      @test_transaction_error "0x15f8e5ea1079d9a0bb04a4c58ae5fe7654b5b2b4463375ff7ffb490aa0032f3a"
+      @test_transaction_receipt "0x513c1ba0bebf66436b5fed86ab668452b7805593c05073eb2d51d3a52f480a76"
       @test_topic_address "0x33990122638b9132ca29c723bdf037f1a891a70c"
-      @test_topic_0 "0xf63780e752c6a54a94fc52715dbc5518a3b4c3c2833d301a204226548a2a8545"
-      @test_topic_1 "0x72657075746174696f6e00000000000000000000000000000000000000000000"
-
-      @test_address1_balance "40807.17856606999703217298"
-      @test_address2_balance "332.56713622282705955513"
-      @test_address3_balance "0.0"
-      @test_token_address_balance 135_499
-
-      @test_token_supply 21_265_524_714_464
-      @test_block_number 2_165_403
-      # Note: typically changes on fixture updates
-      @test_eth_supply "102395190.40530000627040863037"
-      # Note: typically changes on fixture updates
-      @test_eth_btc_price "0.03437"
-      # Note: typically changes on fixture updates
-      @test_eth_usd_price "226.75"
+      @test_topic_1 "0xf63780e752c6a54a94fc52715dbc5518a3b4c3c2833d301a204226548a2a8545"
+      @test_topic_2 "0x72657075746174696f6e00000000000000000000000000000000000000000000"
 
       @test_proxy_block_number 6_196_278
       @test_proxy_block_tag "0x10d4f"

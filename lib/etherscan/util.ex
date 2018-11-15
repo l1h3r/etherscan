@@ -1,7 +1,7 @@
 defmodule Etherscan.Util do
   @moduledoc false
 
-  @denominations [
+  @convert [
     wei: 1,
     kwei: 1000,
     mwei: 1_000_000,
@@ -19,18 +19,6 @@ defmodule Etherscan.Util do
 
   @type maybe_number :: number | binary
 
-  @spec wrap(term, atom) :: {atom, term}
-  def wrap(term, tag) when is_atom(tag) do
-    {tag, term}
-  end
-
-  @spec merge_params(map, map) :: map
-  def merge_params(params, default) do
-    default
-    |> Map.merge(params)
-    |> Map.take(default |> Map.keys())
-  end
-
   @spec convert(maybe_number, keyword) :: binary
   def convert(number, opts \\ [])
 
@@ -39,7 +27,7 @@ defmodule Etherscan.Util do
     precision = Keyword.get(opts, :precision, @precision)
 
     denom =
-      @denominations
+      @convert
       |> List.keyfind(as, 0)
       |> elem(1)
 

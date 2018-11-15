@@ -43,13 +43,12 @@ defmodule Etherscan.Mixfile do
     [
       # Core Dependecies
       {:jason, "~> 1.1"},
-      {:httpoison, "~> 1.3"},
+      {:httpoison, "~> 1.4"},
       # Test Dependecies
-      {:exvcr, "~> 0.10.3", only: :test},
-      {:excoveralls, "~> 0.10.1", only: :test},
+      {:excoveralls, "~> 0.10.2", only: :test},
       # Dev Dependecies
       {:ex_doc, "~> 0.19.1", only: :dev},
-      {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0.0-rc.4", only: :dev, runtime: false},
       {:credo, "~> 0.10.2", only: :dev, runtime: false}
     ]
   end

@@ -42,7 +42,7 @@ defmodule Etherscan.Config do
   @spec endpoint :: binary
   def endpoint do
     @app
-    |> Application.get_env(:testnet)
+    |> Application.get_env(:network)
     |> testnet_or_default()
     |> enhance_uri()
     |> URI.to_string()

@@ -2,7 +2,7 @@ use Mix.Config
 
 config :etherscan,
   api_key: "",
-  testnet: :default,
+  network: :default,
   request: []
 
 env = "#{Mix.env()}.exs"

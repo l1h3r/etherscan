@@ -1,6 +1,5 @@
 defmodule Etherscan.UtilTest do
   use ExUnit.Case, async: true
-
   alias Etherscan.Util
 
   describe "convert/2" do
