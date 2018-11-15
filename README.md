@@ -18,33 +18,31 @@ Etherscan is available on [Hex](https://hex.pm/). You can install the package vi
 ```elixir
 def deps do
   [
-    {:etherscan, "~> 2.0.0"}
+    {:etherscan, "~> 2.0.2"}
   ]
 end
 ```
-
 ## Usage
 
-#### Setting Your API Key
+[Please see documentation](https://hexdocs.pm/etherscan/Etherscan.html)
 
-An API key is not required to use the Etherscan API, however, you can set one with the following:
+## Configuration
+
+#### API Key (optional)
 
 ```elixir
 config :etherscan,
   api_key: "<YOUR-API-KEY>"
 ```
 
-#### Using a Testnet
+#### Network
 
-You can use one of the test networks with the following:
 ```elixir
 config :etherscan,
   network: :ropsten
 ```
 
-#### Setting Request Options
-
-You can set additional request options which are passed to [HTTPoison]:
+#### Request (options passed to [HTTPoison])
 
 ```elixir
 config :etherscan,
