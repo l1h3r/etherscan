@@ -42,7 +42,7 @@ config :etherscan,
   network: :ropsten
 ```
 
-#### Request (options passed to [HTTPoison])
+#### Request (options passed to [HTTPoison](https://github.com/edgurgel/httpoison))
 
 ```elixir
 config :etherscan,
@@ -50,5 +50,3 @@ config :etherscan,
 ```
 
 Check out the HTTPoison [README](https://github.com/edgurgel/httpoison#options) for all available options.
-
-[HTTPoison]: https://github.com/edgurgel/httpoison
