@@ -45,7 +45,7 @@ defmodule Etherscan.Mixfile do
       {:jason, "~> 1.1"},
       {:httpoison, "~> 1.4"},
       # Test Dependecies
-      {:excoveralls, "~> 0.10.2", only: :test},
+      {:excoveralls, "~> 0.10.3", only: :test},
       # Dev Dependecies
       {:ex_doc, "~> 0.19.1", only: :dev},
       {:dialyxir, "~> 1.0.0-rc.4", only: :dev, runtime: false},
