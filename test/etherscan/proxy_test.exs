@@ -2,6 +2,25 @@ defmodule Etherscan.ProxyTest do
   use ExUnit.Case
   use Etherscan.Constants
 
+  defp assert_transaction(fun) do
+    assert {:ok, %{
+      "blockHash" => <<_::binary>>,
+      "blockNumber" => <<_::binary>>,
+      "from" => <<_::binary>>,
+      "gas" => <<_::binary>>,
+      "gasPrice" => <<_::binary>>,
+      "hash" => <<_::binary>>,
+      "input" => <<_::binary>>,
+      "nonce" => <<_::binary>>,
+      "r" => <<_::binary>>,
+      "s" => <<_::binary>>,
+      "to" => <<_::binary>>,
+      "transactionIndex" => <<_::binary>>,
+      "v" => <<_::binary>>,
+      "value" => <<_::binary>>
+    }} = fun.()
+  end
+
   describe "eth_block_number/0" do
     @tag :api
     test "returns the most recent block number" do
@@ -94,22 +113,9 @@ defmodule Etherscan.ProxyTest do
   describe "eth_get_transaction_by_hash/1" do
     @tag :api
     test "with valid transaction hash" do
-      assert {:ok, %{
-        "blockHash" => <<_::binary>>,
-        "blockNumber" => <<_::binary>>,
-        "from" => <<_::binary>>,
-        "gas" => <<_::binary>>,
-        "gasPrice" => <<_::binary>>,
-        "hash" => <<_::binary>>,
-        "input" => <<_::binary>>,
-        "nonce" => <<_::binary>>,
-        "r" => <<_::binary>>,
-        "s" => <<_::binary>>,
-        "to" => <<_::binary>>,
-        "transactionIndex" => <<_::binary>>,
-        "v" => <<_::binary>>,
-        "value" => <<_::binary>>
-      }} = Etherscan.eth_get_transaction_by_hash(@test_proxy_transaction_hash)
+      assert_transaction(fn ->
+        Etherscan.eth_get_transaction_by_hash(@test_proxy_transaction_hash)
+      end)
     end
 
     test "with invalid transaction hash" do
@@ -119,22 +125,9 @@ defmodule Etherscan.ProxyTest do
 
   describe "eth_get_transaction_by_block_number_and_index/2" do
     test "with valid tag and index" do
-      assert {:ok, %{
-        "blockHash" => <<_::binary>>,
-        "blockNumber" => <<_::binary>>,
-        "from" => <<_::binary>>,
-        "gas" => <<_::binary>>,
-        "gasPrice" => <<_::binary>>,
-        "hash" => <<_::binary>>,
-        "input" => <<_::binary>>,
-        "nonce" => <<_::binary>>,
-        "r" => <<_::binary>>,
-        "s" => <<_::binary>>,
-        "to" => <<_::binary>>,
-        "transactionIndex" => <<_::binary>>,
-        "v" => <<_::binary>>,
-        "value" => <<_::binary>>
-      }} = Etherscan.eth_get_transaction_by_block_number_and_index( @test_proxy_block_tag, @test_proxy_index)
+      assert_transaction(fn ->
+        Etherscan.eth_get_transaction_by_block_number_and_index(@test_proxy_block_tag, @test_proxy_index)
+      end)
     end
 
     test "with invalid tag" do
